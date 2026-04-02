@@ -3,679 +3,808 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Admin — qisen.shoots</title>
+<title>qisen.shoots — Car Meet Photography, Adelaide SA</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@900&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-:root{
-  --bg:#fff;--bg-1:#fafafa;--bg-2:#f4f4f4;--surface:#eee;
-  --text:#0a0a0a;--text-2:#555;--text-3:#999;
-  --border:rgba(0,0,0,0.08);--border-2:rgba(0,0,0,0.14);
-  --sidebar:224px;--topbar:56px;
-  --green:#1a7a4a;--red:#c0392b;--amber:#8B6914;
-  --font-d:'Playfair Display',serif;--font-b:'DM Sans',sans-serif;--font-m:'DM Mono',monospace;
+:root {
+  --bg:#fff; --bg-1:#fafafa; --bg-2:#f4f4f4;
+  --text:#0a0a0a; --text-2:#555; --text-3:#999;
+  --border:rgba(0,0,0,0.08); --border-2:rgba(0,0,0,0.14);
+  --green:#1a7a4a; --red:#c0392b; --amber:#8B6914;
+  --font-d:'Playfair Display',serif; --font-b:'DM Sans',sans-serif; --font-m:'DM Mono',monospace;
   --ease:cubic-bezier(0.16,1,0.3,1);
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-body{background:var(--bg-1);color:var(--text);font-family:var(--font-b);font-size:14px;line-height:1.5;-webkit-font-smoothing:antialiased;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:var(--font-b);font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
 
-/* LOGIN */
-#login-screen{display:flex;align-items:center;justify-content:center;min-height:100vh;background:var(--bg);}
-.login-wrap{width:100%;max-width:360px;padding:24px;}
-.login-logo{font-family:var(--font-m);font-size:13px;font-weight:500;color:var(--text);margin-bottom:52px;letter-spacing:0.02em;}
-.login-logo span{color:var(--text-3);}
-.login-title{font-family:var(--font-d);font-size:40px;font-weight:900;color:var(--text);line-height:0.9;margin-bottom:8px;}
-.login-sub{font-size:13px;color:var(--text-3);margin-bottom:44px;}
-.login-field{margin-bottom:14px;}
-.login-label{font-family:var(--font-m);font-size:9px;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;color:var(--text-3);display:block;margin-bottom:8px;}
-.login-input{width:100%;background:var(--bg);border:1px solid var(--border-2);color:var(--text);font-family:var(--font-b);font-size:14px;padding:11px 13px;outline:none;transition:border-color 0.18s;-webkit-appearance:none;border-radius:0;}
-.login-input:focus{border-color:var(--text);}
-.login-btn{width:100%;padding:13px;background:var(--text);color:#fff;border:none;cursor:pointer;font-family:var(--font-m);font-size:11px;letter-spacing:0.08em;text-transform:uppercase;font-weight:500;margin-top:6px;transition:opacity 0.18s;}
-.login-btn:hover{opacity:0.75;}
-.login-err{display:none;font-family:var(--font-m);font-size:11px;color:var(--red);background:rgba(192,57,43,0.06);border:1px solid rgba(192,57,43,0.18);padding:10px 12px;margin-top:12px;letter-spacing:0.04em;}
-
-/* APP SHELL */
-#app{display:none;grid-template-columns:var(--sidebar) 1fr;grid-template-rows:var(--topbar) 1fr;min-height:100vh;}
-
-/* TOPBAR */
-.topbar{grid-column:1/-1;background:var(--bg);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 24px 0 0;z-index:100;}
-.topbar-logo{display:flex;align-items:center;justify-content:center;width:var(--sidebar);height:var(--topbar);border-right:1px solid var(--border);font-family:var(--font-m);font-size:13px;font-weight:500;color:var(--text);letter-spacing:0.02em;text-decoration:none;flex-shrink:0;}
-.topbar-logo-dot{color:var(--text-3);}
-.topbar-right{display:flex;align-items:center;gap:18px;}
-.topbar-user{font-family:var(--font-m);font-size:10px;color:var(--text-3);letter-spacing:0.06em;text-transform:uppercase;max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
-.signout-btn{font-family:var(--font-m);font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-3);background:none;border:1px solid var(--border-2);padding:6px 14px;cursor:pointer;transition:all 0.18s;}
-.signout-btn:hover{color:var(--text);border-color:var(--text);}
-
-/* SIDEBAR */
-.sidebar{background:var(--bg);border-right:1px solid var(--border);padding:16px 0;overflow-y:auto;}
-.sidebar-section-label{font-family:var(--font-m);font-size:9px;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;color:var(--text-3);padding:14px 20px 6px;}
-.nav-item{display:flex;align-items:center;gap:10px;padding:9px 20px;font-size:13px;color:var(--text-2);cursor:pointer;border:none;background:none;width:100%;text-align:left;transition:background 0.15s,color 0.15s;position:relative;}
-.nav-item:hover{background:var(--bg-1);color:var(--text);}
-.nav-item.active{background:var(--bg-2);color:var(--text);font-weight:500;}
-.nav-item.active::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--text);}
-.nav-item-icon{width:14px;height:14px;opacity:0.45;flex-shrink:0;stroke:currentColor;fill:none;stroke-width:1.5;stroke-linecap:round;}
-.nav-item.active .nav-item-icon{opacity:0.9;}
-.nav-badge{margin-left:auto;font-family:var(--font-m);font-size:9px;background:var(--text);color:#fff;padding:2px 7px;min-width:18px;text-align:center;display:none;}
-.nav-badge.show{display:block;}
-.sidebar-divider{height:1px;background:var(--border);margin:8px 20px;}
-
-/* MAIN */
-main{overflow-y:auto;background:var(--bg-1);}
-.page{display:none;padding:28px 32px;}
-.page.active{display:block;}
-.page-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:28px;gap:16px;}
-.page-title{font-family:var(--font-d);font-size:28px;font-weight:900;color:var(--text);line-height:1;}
-.page-sub{font-size:12px;color:var(--text-3);margin-top:4px;}
-
-/* STAT CARDS */
-.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;margin-bottom:24px;background:var(--border-2);border:1px solid var(--border-2);}
-.stat-card{background:var(--bg);padding:22px 24px;}
-.stat-card-label{font-family:var(--font-m);font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:var(--text-3);margin-bottom:12px;}
-.stat-card-value{font-family:var(--font-d);font-size:40px;font-weight:900;color:var(--text);line-height:1;}
-
-/* TABLES */
-.table-wrap{background:var(--bg);border:1px solid var(--border-2);}
-.table-toolbar{display:flex;align-items:center;justify-content:space-between;padding:12px 18px;border-bottom:1px solid var(--border);}
-.table-toolbar-title{font-family:var(--font-m);font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-3);}
-.table-search{font-family:var(--font-m);font-size:11px;letter-spacing:0.04em;background:var(--bg-1);border:1px solid var(--border-2);color:var(--text);padding:6px 12px;outline:none;width:200px;transition:border-color 0.18s;border-radius:0;}
-.table-search:focus{border-color:var(--text);}
-table{width:100%;border-collapse:collapse;}
-th{font-family:var(--font-m);font-size:9px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-3);padding:10px 18px;text-align:left;border-bottom:1px solid var(--border-2);background:var(--bg-1);}
-td{padding:11px 18px;border-bottom:1px solid var(--border);font-size:13px;color:var(--text-2);vertical-align:top;}
-tr:last-child td{border-bottom:none;}
-tr:hover td{background:var(--bg-1);}
-td.primary{color:var(--text);font-weight:500;}
-td.mono{font-family:var(--font-m);font-size:11px;}
-.empty{padding:48px;text-align:center;}
-.empty-icon{font-size:28px;margin-bottom:10px;}
-.empty-msg{font-family:var(--font-m);font-size:11px;letter-spacing:0.06em;color:var(--text-3);}
-.loading{text-align:center;padding:36px;color:var(--text-3);font-family:var(--font-m);font-size:10px;letter-spacing:0.08em;}
-
-/* BADGES */
-.badge{font-family:var(--font-m);font-size:9px;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;padding:3px 8px;white-space:nowrap;display:inline-block;}
-.badge-confirmed,.badge-active,.badge-paid{color:var(--green);background:rgba(26,122,74,0.07);border:1px solid rgba(26,122,74,0.18);}
-.badge-pending,.badge-awaiting_deposit,.badge-open,.badge-unpaid,.badge-refund_pending{color:var(--amber);background:rgba(139,105,20,0.07);border:1px solid rgba(139,105,20,0.18);}
-.badge-cancelled,.badge-inactive,.badge-refunded,.badge-failed{color:var(--red);background:rgba(192,57,43,0.07);border:1px solid rgba(192,57,43,0.18);}
-.badge-completed,.badge-delivered,.badge-limited{color:var(--text-2);background:var(--bg-2);border:1px solid var(--border-2);}
+/* NAV */
+nav{position:fixed;inset:0 0 auto 0;z-index:500;height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 48px;background:rgba(255,255,255,0.93);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--border);}
+.nav-logo{font-family:var(--font-m);font-size:13px;font-weight:500;color:var(--text);text-decoration:none;letter-spacing:0.02em;}
+.nav-logo-dot{color:var(--text-3);}
+.nav-center{display:flex;gap:0;list-style:none;height:100%;align-items:stretch;}
+.nav-center li{display:flex;align-items:center;}
+.nav-center a{font-size:11px;font-weight:400;color:var(--text-3);text-decoration:none;letter-spacing:0.08em;text-transform:uppercase;padding:0 18px;height:100%;display:flex;align-items:center;transition:color 0.2s;}
+.nav-center a:hover,.nav-center a.active{color:var(--text);}
+.nav-indicator{position:absolute;bottom:-1px;height:1px;background:var(--text);transition:left 0.3s var(--ease),width 0.3s var(--ease),opacity 0.2s;pointer-events:none;opacity:0;}
+.nav-indicator.visible{opacity:1;}
+.nav-cta{font-family:var(--font-m);font-size:11px;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:#fff;background:var(--text);border:none;padding:10px 22px;text-decoration:none;cursor:pointer;transition:opacity 0.18s;}
+.nav-cta:hover{opacity:0.75;}
+.nav-hamburger{display:none;flex-direction:column;justify-content:center;gap:5px;width:36px;height:36px;background:none;border:none;cursor:pointer;padding:4px;flex-shrink:0;}
+.nav-hamburger span{display:block;width:20px;height:1px;background:var(--text);transition:transform 0.25s var(--ease),opacity 0.2s,width 0.2s;transform-origin:center;}
+.nav-hamburger.open span:nth-child(1){transform:translateY(6px) rotate(45deg);}
+.nav-hamburger.open span:nth-child(2){opacity:0;width:0;}
+.nav-hamburger.open span:nth-child(3){transform:translateY(-6px) rotate(-45deg);}
+.nav-drawer{position:fixed;top:64px;left:0;right:0;z-index:490;background:var(--bg);border-bottom:1px solid var(--border-2);transform:translateY(-8px);opacity:0;pointer-events:none;transition:transform 0.28s var(--ease),opacity 0.22s;padding:8px 0 20px;}
+.nav-drawer.open{transform:translateY(0);opacity:1;pointer-events:auto;}
+.nav-drawer a{display:flex;align-items:center;padding:13px 28px;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-3);text-decoration:none;border-bottom:1px solid var(--border);transition:color 0.15s;}
+.nav-drawer a:hover{color:var(--text);}
+.nav-drawer a:last-of-type{border-bottom:none;}
+.nav-drawer-cta{display:block;margin:16px 28px 0;padding:13px;background:var(--text);color:#fff !important;text-align:center;font-family:var(--font-m);font-size:11px;letter-spacing:0.08em;text-transform:uppercase;font-weight:500;text-decoration:none;transition:opacity 0.18s;}
+.nav-drawer-cta:hover{opacity:0.75 !important;}
 
 /* BUTTONS */
-.btn{display:inline-flex;align-items:center;gap:6px;font-family:var(--font-m);font-size:10px;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;padding:8px 18px;border:1px solid transparent;cursor:pointer;text-decoration:none;transition:all 0.18s;white-space:nowrap;border-radius:0;}
+.btn{display:inline-flex;align-items:center;gap:6px;font-family:var(--font-m);font-size:11px;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;padding:12px 24px;border:1px solid transparent;cursor:pointer;text-decoration:none;transition:all 0.18s var(--ease);white-space:nowrap;}
 .btn-primary{background:var(--text);color:#fff;border-color:var(--text);}
 .btn-primary:hover{opacity:0.75;}
 .btn-ghost{background:transparent;color:var(--text);border-color:var(--border-2);}
 .btn-ghost:hover{border-color:var(--text);}
-.btn-danger{background:transparent;color:var(--red);border-color:rgba(192,57,43,0.25);}
-.btn-danger:hover{background:rgba(192,57,43,0.06);border-color:var(--red);}
-.btn-sm{padding:5px 13px;font-size:9px;}
-.btn svg{width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;}
+.btn-ghost-outline{background:transparent;color:var(--text-2);border:1px solid var(--border-2);font-size:11px;padding:8px 16px;}
+.btn-ghost-outline:hover{color:var(--text);border-color:var(--text);}
+.btn:disabled{opacity:0.3;cursor:not-allowed;pointer-events:none;}
 
-/* PACKAGE PREVIEW CARDS */
-.pkg-preview-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1px;background:var(--border-2);border:1px solid var(--border-2);}
-.pkg-preview-card{background:var(--bg);padding:28px 26px 22px;display:flex;flex-direction:column;cursor:pointer;transition:background 0.18s;position:relative;}
-.pkg-preview-card:hover{background:var(--bg-1);}
-.pkg-preview-card.is-popular{background:#0a0a0a;}
-.pkg-preview-card.is-popular:hover{background:#111;}
-.pkg-preview-card.is-inactive{opacity:0.4;}
-.pkg-preview-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;}
-.pkg-preview-tier{font-family:var(--font-m);font-size:9px;font-weight:500;letter-spacing:0.16em;text-transform:uppercase;color:var(--text-3);}
-.is-popular .pkg-preview-tier{color:rgba(255,255,255,0.35);}
-.pkg-preview-popular{font-family:var(--font-m);font-size:8px;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.5);background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);padding:3px 8px;}
-.pkg-preview-count{font-family:var(--font-d);font-size:52px;font-weight:900;line-height:0.85;color:var(--text);margin-bottom:2px;letter-spacing:-0.02em;}
-.is-popular .pkg-preview-count{color:#fff;}
-.pkg-preview-unit{font-family:var(--font-m);font-size:9px;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-3);margin-bottom:12px;}
-.is-popular .pkg-preview-unit{color:rgba(255,255,255,0.3);}
-.pkg-preview-price{font-family:var(--font-d);font-size:22px;font-weight:700;color:var(--text);margin-bottom:10px;}
-.is-popular .pkg-preview-price{color:#fff;}
-.pkg-preview-price .gst{font-family:var(--font-m);font-size:11px;color:var(--text-3);font-weight:400;margin-left:3px;}
-.is-popular .pkg-preview-price .gst{color:rgba(255,255,255,0.3);}
-.pkg-preview-tagline{font-size:12px;font-weight:300;color:var(--text-2);line-height:1.55;margin-bottom:14px;flex:1;}
-.is-popular .pkg-preview-tagline{color:rgba(255,255,255,0.45);}
-.pkg-preview-features{list-style:none;display:flex;flex-direction:column;gap:5px;margin-bottom:18px;border-top:1px solid var(--border);padding-top:12px;}
-.is-popular .pkg-preview-features{border-color:rgba(255,255,255,0.1);}
-.pkg-preview-features li{font-size:11px;color:var(--text-2);display:flex;align-items:flex-start;gap:7px;}
-.is-popular .pkg-preview-features li{color:rgba(255,255,255,0.45);}
-.pkg-preview-features li::before{content:'—';font-family:var(--font-m);font-size:9px;color:var(--text-3);flex-shrink:0;}
-.is-popular .pkg-preview-features li::before{color:rgba(255,255,255,0.2);}
-.pkg-preview-actions{display:flex;gap:7px;margin-top:auto;}
-.pkg-preview-inactive-badge{font-family:var(--font-m);font-size:8px;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-3);background:var(--bg-2);border:1px solid var(--border);padding:2px 8px;position:absolute;top:14px;right:14px;}
-.popular-btn{font-family:var(--font-m);font-size:9px;letter-spacing:0.06em;text-transform:uppercase;flex:1;padding:5px 10px;background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.55);border:1px solid rgba(255,255,255,0.14);cursor:pointer;transition:all 0.18s;}
-.popular-btn:hover{background:rgba(255,255,255,0.16);color:#fff;}
-.popular-btn.is-set{background:rgba(255,255,255,0.14);color:#fff;border-color:rgba(255,255,255,0.3);}
+/* SCAFFOLD */
+.section-wrap{padding:112px 48px;}
+.section-inner{max-width:1140px;margin:0 auto;}
+.eyebrow{font-family:var(--font-m);font-size:10px;font-weight:500;letter-spacing:0.16em;text-transform:uppercase;color:var(--text-3);margin-bottom:20px;display:flex;align-items:center;gap:12px;}
+.eyebrow::before{content:'';display:block;width:28px;height:1px;background:var(--text-3);}
+.section-title{font-family:var(--font-d);font-size:clamp(44px,5.5vw,72px);font-weight:900;line-height:0.93;letter-spacing:-0.01em;color:var(--text);margin-bottom:56px;}
 
-/* TOGGLE PILLS */
-.pkg-toggle-pill{display:inline-flex;align-items:center;gap:6px;font-family:var(--font-m);font-size:10px;letter-spacing:0.08em;text-transform:uppercase;padding:6px 14px;border:1px solid var(--border-2);background:transparent;color:var(--text-3);cursor:pointer;white-space:nowrap;transition:all 0.15s;user-select:none;}
-.pkg-toggle-pill:hover{color:var(--text);border-color:var(--text);}
-.pkg-toggle-pill.on{background:var(--text);color:#fff;border-color:var(--text);}
-
-/* PORTFOLIO ADMIN */
-.portfolio-upload-zone{border:1px dashed var(--border-2);padding:40px;text-align:center;cursor:pointer;transition:border-color 0.18s,background 0.18s;margin-bottom:24px;background:var(--bg);}
-.portfolio-upload-zone:hover,.portfolio-upload-zone.drag-over{border-color:var(--text);background:var(--bg-1);}
-.portfolio-upload-zone input{display:none;}
-.upload-zone-label{font-family:var(--font-m);font-size:11px;letter-spacing:0.06em;color:var(--text-3);}
-.upload-zone-label span{color:var(--text);text-decoration:underline;}
-.upload-progress{display:none;height:2px;background:var(--border-2);margin-top:16px;overflow:hidden;}
-.upload-progress-bar{height:100%;background:var(--text);transition:width 0.3s ease;width:0%;}
-.portfolio-grid-admin{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:4px;}
-.portfolio-thumb{position:relative;aspect-ratio:4/3;overflow:hidden;cursor:pointer;background:var(--bg-2);}
-.portfolio-thumb img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.3s;}
-.portfolio-thumb:hover img{transform:scale(1.04);}
-.portfolio-thumb-overlay{position:absolute;inset:0;background:rgba(0,0,0,0);transition:background 0.25s;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:12px;}
-.portfolio-thumb:hover .portfolio-thumb-overlay{background:rgba(0,0,0,0.62);}
-.portfolio-thumb-title{font-family:var(--font-m);font-size:10px;letter-spacing:0.06em;text-transform:uppercase;color:#fff;opacity:0;transition:opacity 0.25s;text-align:center;}
-.portfolio-thumb:hover .portfolio-thumb-title{opacity:1;}
-.portfolio-thumb-actions{display:flex;gap:6px;opacity:0;transition:opacity 0.25s;}
-.portfolio-thumb:hover .portfolio-thumb-actions{opacity:1;}
-.thumb-btn{font-family:var(--font-m);font-size:9px;letter-spacing:0.06em;text-transform:uppercase;padding:5px 10px;background:rgba(255,255,255,0.9);color:#0a0a0a;border:none;cursor:pointer;transition:background 0.15s;}
-.thumb-btn:hover{background:#fff;}
-.thumb-btn.danger{background:rgba(192,57,43,0.85);color:#fff;}
-.thumb-btn.danger:hover{background:var(--red);}
-.thumb-badge-featured{position:absolute;top:8px;left:8px;font-family:var(--font-m);font-size:8px;letter-spacing:0.08em;text-transform:uppercase;background:var(--text);color:#fff;padding:2px 7px;}
-
-/* MODALS */
-.modal-backdrop{display:none;position:fixed;inset:0;z-index:1000;background:rgba(255,255,255,0.88);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);align-items:center;justify-content:center;padding:24px;}
-.modal-backdrop.open{display:flex;animation:fadeIn 0.18s ease both;}
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity 0.6s var(--ease),transform 0.6s var(--ease);}
+.reveal.visible{opacity:1;transform:translateY(0);}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
 @keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
-.modal{background:var(--bg);border:1px solid var(--border-2);width:100%;max-width:520px;max-height:90vh;overflow-y:auto;animation:modalIn 0.22s var(--ease) both;}
-@keyframes modalIn{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:translateY(0);}}
-.modal-header{display:flex;align-items:center;justify-content:space-between;padding:16px 22px;border-bottom:1px solid var(--border-2);}
-.modal-title{font-family:var(--font-m);font-size:11px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--text);}
-.modal-close{background:none;border:none;color:var(--text-3);cursor:pointer;font-size:20px;line-height:1;padding:2px;transition:color 0.15s;}
-.modal-close:hover{color:var(--text);}
-.modal-body{padding:22px;}
-.modal-footer{display:flex;align-items:center;justify-content:flex-end;gap:8px;padding:14px 22px;border-top:1px solid var(--border);background:var(--bg-1);}
 
-/* FIELDS */
-.field{margin-bottom:14px;}
-.field-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
-.field-label{font-family:var(--font-m);font-size:9px;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;color:var(--text-3);display:block;margin-bottom:7px;}
-.field-input,.field-select,.field-textarea{width:100%;background:var(--bg);border:1px solid var(--border-2);color:var(--text);font-family:var(--font-b);font-size:13px;padding:9px 11px;outline:none;transition:border-color 0.18s;border-radius:0;-webkit-appearance:none;appearance:none;}
-.field-input:focus,.field-select:focus,.field-textarea:focus{border-color:var(--text);}
-.field-select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath stroke='%23999' stroke-width='1.2' fill='none' stroke-linecap='round' d='M1 1l4 4 4-4'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 11px center;padding-right:30px;cursor:pointer;}
-.field-select option{background:var(--bg);}
-.field-textarea{resize:vertical;min-height:80px;}
-.field-check{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--text-2);cursor:pointer;}
-.field-check input{accent-color:var(--text);}
-.detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px;}
-.detail-item-label{font-family:var(--font-m);font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-3);margin-bottom:4px;}
-.detail-item-val{font-size:13px;color:var(--text);}
+/* HERO */
+#hero{min-height:100dvh;display:flex;flex-direction:column;justify-content:flex-end;padding:80px 48px 64px;position:relative;overflow:hidden;background:#0a0a0a;}
+.hero-bg-text{position:absolute;top:50%;left:-0.02em;transform:translateY(-52%);font-family:var(--font-d);font-size:clamp(160px,26vw,400px);font-weight:900;line-height:0.85;color:rgba(255,255,255,0.028);pointer-events:none;white-space:nowrap;letter-spacing:-0.03em;animation:fadeIn 1.5s ease both;}
+.hero-inner{max-width:1140px;margin:0 auto;width:100%;position:relative;z-index:1;}
+.hero-kicker{font-family:var(--font-m);font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.35);display:flex;align-items:center;gap:14px;margin-bottom:32px;animation:fadeIn 0.8s ease 0.1s both;}
+.kicker-line{width:36px;height:1px;background:rgba(255,255,255,0.25);}
+.hero-heading{font-family:var(--font-d);font-size:clamp(80px,13vw,180px);font-weight:900;line-height:0.88;letter-spacing:-0.02em;color:#fff;animation:fadeUp 1s var(--ease) 0.15s both;}
+.hero-heading em{font-style:italic;color:rgba(255,255,255,0.45);}
+.hero-bottom{display:grid;grid-template-columns:1fr auto;align-items:flex-end;gap:40px;margin-top:48px;animation:fadeUp 1s var(--ease) 0.3s both;}
+.hero-sub{max-width:360px;font-size:14px;font-weight:300;color:rgba(255,255,255,0.45);line-height:1.8;}
+.hero-ctas{display:flex;gap:10px;flex-shrink:0;flex-wrap:wrap;justify-content:flex-end;}
+.hero-ctas .btn-primary{background:#fff;color:#0a0a0a;border-color:#fff;}
+.hero-ctas .btn-ghost{background:transparent;color:rgba(255,255,255,0.6);border-color:rgba(255,255,255,0.18);}
+.hero-ctas .btn-ghost:hover{color:#fff;border-color:rgba(255,255,255,0.55);}
+.hero-stats-row{display:flex;gap:0;margin-top:72px;padding-top:36px;border-top:1px solid rgba(255,255,255,0.08);animation:fadeUp 1s var(--ease) 0.45s both;}
+.stat{flex:1;padding-right:36px;border-right:1px solid rgba(255,255,255,0.08);margin-right:36px;}
+.stat:last-child{border-right:none;margin-right:0;padding-right:0;}
+.stat-num{font-family:var(--font-d);font-size:48px;font-weight:900;color:#fff;line-height:1;margin-bottom:6px;}
+.stat-lbl{font-family:var(--font-m);font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.3);}
 
-/* TOAST */
-#toast{position:fixed;bottom:24px;right:24px;z-index:9999;display:flex;flex-direction:column;gap:8px;pointer-events:none;}
-.toast-item{font-family:var(--font-m);font-size:11px;letter-spacing:0.06em;padding:11px 18px;background:var(--text);color:#fff;animation:toastIn 0.25s var(--ease) both;pointer-events:auto;}
-.toast-item.error{background:var(--red);}
-@keyframes toastIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+/* PORTFOLIO (homepage) */
+#portfolio{background:var(--bg);overflow:hidden;}
+.hp-scroll-wrap{position:relative;width:100%;}
+/* The scrolling track */
+.hp-track{display:flex;gap:4px;width:max-content;animation:hpScroll 40s linear infinite;}
+.hp-track:hover{animation-play-state:paused;}
+@keyframes hpScroll{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+/* Each photo item — varied heights via nth-child to look random */
+.hp-item{flex-shrink:0;overflow:hidden;background:var(--bg-2);cursor:pointer;position:relative;}
+.hp-item:nth-child(6n+1){height:260px;width:390px;}
+.hp-item:nth-child(6n+2){height:200px;width:270px;}
+.hp-item:nth-child(6n+3){height:280px;width:420px;}
+.hp-item:nth-child(6n+4){height:220px;width:330px;}
+.hp-item:nth-child(6n+5){height:260px;width:350px;}
+.hp-item:nth-child(6n+6){height:200px;width:300px;}
+.hp-item img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.5s var(--ease),filter 0.3s;}
+.hp-item:hover img{transform:scale(1.04);filter:brightness(0.85);}
+.hp-portfolio-footer{display:flex;justify-content:flex-end;margin-top:20px;}
+.hp-view-all{font-family:var(--font-m);font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-3);text-decoration:none;display:flex;align-items:center;gap:8px;transition:color 0.2s;}
+.hp-view-all::after{content:'→';}
+.hp-view-all:hover{color:var(--text);}
+/* Placeholder grid shown before JS loads */
+.portfolio-grid{display:flex;gap:4px;overflow:hidden;}
+.photo-slot{flex-shrink:0;overflow:hidden;background:var(--bg-2);}
+.photo-slot:nth-child(1){height:260px;width:390px;}
+.photo-slot:nth-child(2){height:200px;width:270px;}
+.photo-slot:nth-child(3){height:280px;width:420px;}
+.photo-slot:nth-child(4){height:220px;width:330px;}
+.photo-slot:nth-child(5){height:260px;width:350px;}
+
+/* EVENTS */
+#events{background:var(--bg-1);}
+.events-list{border-top:1px solid var(--border-2);}
+.event-row{display:grid;grid-template-columns:96px 1fr auto auto;align-items:center;gap:28px;padding:24px 0;border-bottom:1px solid var(--border);transition:background 0.15s;}
+.event-row:hover{background:rgba(0,0,0,0.02);}
+.event-row.booked{opacity:0.4;}
+.event-date-block{display:flex;flex-direction:column;}
+.event-day{font-family:var(--font-d);font-size:40px;font-weight:900;line-height:1;color:var(--text);}
+.event-mon{font-family:var(--font-m);font-size:9px;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-3);margin-top:2px;}
+.event-name{font-size:14px;font-weight:500;color:var(--text);margin-bottom:3px;}
+.event-location{font-family:var(--font-m);font-size:11px;color:var(--text-3);letter-spacing:0.04em;}
+.badge{font-family:var(--font-m);font-size:9px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;padding:4px 10px;white-space:nowrap;}
+.badge-open{color:var(--green);background:rgba(26,122,74,0.07);border:1px solid rgba(26,122,74,0.18);}
+.badge-full{color:var(--red);background:rgba(192,57,43,0.07);border:1px solid rgba(192,57,43,0.18);}
+.badge-limited{color:var(--amber);background:rgba(139,105,20,0.07);border:1px solid rgba(139,105,20,0.18);}
+
+/* PACKAGES */
+#packages{background:var(--bg);}
+.pkg-dots{display:none;justify-content:center;gap:7px;margin-top:16px;}
+.pkg-dot{width:6px;height:6px;border-radius:50%;background:var(--border-2);border:none;cursor:pointer;padding:0;transition:background 0.2s,transform 0.2s;flex-shrink:0;}
+.pkg-dot.active{background:var(--text);transform:scale(1.35);}
+.packages-wrap{position:relative;}
+.pkg-arrow{position:absolute;top:50%;transform:translateY(-50%);z-index:10;width:40px;height:40px;background:var(--bg);border:1px solid var(--border-2);color:var(--text-2);cursor:pointer;display:none;align-items:center;justify-content:center;transition:border-color 0.18s,color 0.18s;}
+.pkg-arrow:hover{border-color:var(--text);color:var(--text);}
+.pkg-arrow svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;}
+.pkg-arrow.prev{left:-56px;}
+.pkg-arrow.next{right:-56px;}
+.pkg-arrow:disabled{opacity:0.25;cursor:not-allowed;}
+.pkg-arrow.visible{display:flex;}
+.packages-viewport{border:1px solid var(--border-2);overflow:hidden;}
+.packages-grid{display:flex;background:var(--border-2);gap:1px;transition:transform 0.4s var(--ease);}
+@media(max-width:940px){
+  .packages-viewport{overflow-x:scroll;overflow-y:hidden;scrollbar-width:none;-webkit-overflow-scrolling:touch;scroll-snap-type:x mandatory;}
+  .packages-viewport::-webkit-scrollbar{display:none;}
+  .packages-grid{transform:none !important;transition:none !important;gap:0;width:max-content;}
+  .pkg{width:88vw !important;max-width:400px !important;scroll-snap-align:center;flex-shrink:0;border-right:none;}
+  .pkg+.pkg{border-left:1px solid var(--border);}
+  .pkg-ghost{display:none !important;}
+  .pkg-arrow{display:none !important;}
+  .pkg-dots{display:flex;}
+}
+.pkg{background:var(--bg);padding:36px 32px 32px;display:flex;flex-direction:column;position:relative;flex-shrink:0;transition:background 0.2s;max-width:420px;}
+.pkg:hover{background:var(--bg-1);}
+.pkg.featured{background:#0a0a0a;}
+.pkg.featured:hover{background:#111;}
+.pkg.featured .pkg-tier{color:rgba(255,255,255,0.35);}
+.pkg.featured .pkg-count{color:#fff;}
+.pkg.featured .pkg-count-unit,.pkg.featured .pkg-gst{color:rgba(255,255,255,0.35);}
+.pkg.featured .pkg-price{color:#fff;}
+.pkg.featured .pkg-desc{color:rgba(255,255,255,0.5);}
+.pkg.featured .pkg-divider{background:rgba(255,255,255,0.1);}
+.pkg.featured .pkg-features li{color:rgba(255,255,255,0.55);}
+.pkg.featured .feat-dash{color:rgba(255,255,255,0.25);}
+.pkg.featured .btn-ghost{color:rgba(255,255,255,0.55);border-color:rgba(255,255,255,0.18);}
+.pkg.featured .btn-ghost:hover{color:#fff;border-color:rgba(255,255,255,0.5);}
+.pkg.featured .btn-primary{background:#fff;color:#0a0a0a;border-color:#fff;}
+.pkg.featured .pkg-popular-badge{color:rgba(255,255,255,0.5);background:rgba(255,255,255,0.07);border-color:rgba(255,255,255,0.12);}
+.pkg.selected{box-shadow:inset 0 0 0 2px var(--text);}
+.pkg.featured.selected{box-shadow:inset 0 0 0 2px rgba(255,255,255,0.55);}
+.pkg.selected .pkg-tier::after{content:' ✓';}
+.pkg.selected .btn{background:var(--text) !important;color:#fff !important;border-color:var(--text) !important;}
+.pkg.selected .btn::before{content:'✓  ';font-size:10px;}
+.packages-viewport.sparse .packages-grid{background:var(--bg);justify-content:center;gap:1px;}
+.packages-viewport.sparse .pkg:not(.pkg-ghost){border:1px solid var(--border-2);}
+.pkg-ghost{visibility:hidden;pointer-events:none;}
+.pkg-top-line{display:flex;align-items:center;justify-content:space-between;margin-bottom:28px;}
+.pkg-tier{font-family:var(--font-m);font-size:9px;font-weight:500;letter-spacing:0.16em;text-transform:uppercase;color:var(--text-3);}
+.pkg-popular-badge{font-family:var(--font-m);font-size:9px;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-3);background:var(--bg-2);border:1px solid var(--border-2);padding:3px 9px;}
+.pkg-count{font-family:var(--font-d);font-size:80px;font-weight:900;line-height:0.85;color:var(--text);margin-bottom:4px;letter-spacing:-0.02em;}
+.pkg-count-unit{font-family:var(--font-m);font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-3);margin-bottom:18px;}
+.pkg-price{font-family:var(--font-d);font-size:28px;font-weight:700;color:var(--text);margin-bottom:14px;}
+.pkg-gst{font-family:var(--font-m);font-size:11px;color:var(--text-3);font-weight:400;margin-left:4px;}
+.pkg-desc{font-size:13px;font-weight:300;color:var(--text-2);line-height:1.65;margin-bottom:22px;flex:1;}
+.pkg-divider{height:1px;background:var(--border);margin-bottom:18px;}
+.pkg-features{list-style:none;display:flex;flex-direction:column;gap:9px;margin-bottom:26px;}
+.pkg-features li{font-size:13px;color:var(--text-2);display:flex;align-items:flex-start;gap:10px;line-height:1.5;}
+.feat-dash{font-family:var(--font-m);color:var(--text-3);font-size:10px;flex-shrink:0;margin-top:2px;}
+@keyframes pkgPulse{0%{box-shadow:0 0 0 0 rgba(10,10,10,0.3);border-color:var(--text);}60%{box-shadow:0 0 0 6px rgba(10,10,10,0);border-color:var(--text);}100%{border-color:rgba(10,10,10,0.5);}}
+#package.pkg-prefilled{animation:pkgPulse 0.7s var(--ease) both;}
+
+/* BOOKING */
+#booking{background:var(--bg-1);}
+.booking-layout{display:grid;grid-template-columns:1fr 440px;gap:80px;align-items:start;}
+.booking-left h2{font-family:var(--font-d);font-size:clamp(44px,5.5vw,72px);font-weight:900;line-height:0.9;letter-spacing:-0.01em;color:var(--text);margin-bottom:18px;margin-top:8px;}
+.booking-sub{font-size:14px;font-weight:300;color:var(--text-2);line-height:1.75;max-width:300px;margin-bottom:40px;}
+.booking-meta{display:flex;flex-direction:column;gap:18px;}
+.booking-meta-item{display:flex;align-items:flex-start;gap:14px;}
+.meta-icon{width:32px;height:32px;background:var(--bg-2);border:1px solid var(--border-2);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.meta-icon svg{width:13px;height:13px;stroke:var(--text-2);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;}
+.meta-text{font-size:13px;color:var(--text-2);line-height:1.5;}
+.meta-text strong{display:block;font-size:13px;font-weight:500;color:var(--text);margin-bottom:1px;}
+.booking-form-wrap{background:var(--bg);border:1px solid var(--border-2);padding:36px;}
+.form-row-2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.form-group{display:flex;flex-direction:column;gap:8px;margin-bottom:12px;}
+.form-label{font-family:var(--font-m);font-size:9px;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;color:var(--text-3);}
+input,select,textarea{background:var(--bg);border:1px solid var(--border-2);color:var(--text);font-family:var(--font-b);font-size:14px;font-weight:400;padding:11px 13px;width:100%;outline:none;transition:border-color 0.18s;-webkit-appearance:none;appearance:none;border-radius:0;}
+input::placeholder,textarea::placeholder{color:var(--text-3);font-size:13px;}
+input:focus,select:focus,textarea:focus{border-color:var(--text);}
+select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath stroke='%23999' stroke-width='1.2' fill='none' stroke-linecap='round' d='M1 1l4 4 4-4'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 13px center;padding-right:34px;cursor:pointer;}
+select option{background:var(--bg);}
+textarea{resize:vertical;min-height:90px;}
+.btn-submit{width:100%;justify-content:center;padding:14px;margin-top:6px;}
+.form-note{margin-top:14px;font-size:11px;color:var(--text-3);line-height:1.6;border-top:1px solid var(--border);padding-top:14px;}
+.success-banner{display:none;background:rgba(26,122,74,0.06);border:1px solid rgba(26,122,74,0.18);padding:12px 16px;color:var(--green);font-family:var(--font-m);font-size:11px;letter-spacing:0.04em;margin-top:12px;animation:fadeIn 0.4s ease both;}
+
+/* RECEIPT */
+.receipt-backdrop{display:none;position:fixed;inset:0;z-index:2000;background:rgba(255,255,255,0.88);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);align-items:center;justify-content:center;padding:24px;}
+.receipt-backdrop.open{display:flex;animation:fadeIn 0.22s ease both;}
+.receipt-modal{position:relative;background:var(--bg);border:1px solid var(--border-2);width:100%;max-width:420px;max-height:90vh;overflow-y:auto;padding:40px 36px 32px;animation:receiptIn 0.3s var(--ease) both;}
+@keyframes receiptIn{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
+.receipt-close{position:absolute;top:16px;right:16px;background:none;border:none;color:var(--text-3);cursor:pointer;padding:4px;line-height:1;transition:color 0.15s;}
+.receipt-close:hover{color:var(--text);}
+.receipt-close svg{width:16px;height:16px;display:block;}
+.receipt-loading{text-align:center;padding:40px 0;font-family:var(--font-m);font-size:11px;letter-spacing:0.08em;color:var(--text-3);}
+.receipt-check{width:44px;height:44px;background:rgba(26,122,74,0.07);border:1px solid rgba(26,122,74,0.18);display:flex;align-items:center;justify-content:center;margin-bottom:20px;color:var(--green);}
+.receipt-check svg{width:20px;height:20px;}
+.receipt-ref{font-family:var(--font-m);font-size:10px;letter-spacing:0.14em;color:var(--text-3);margin-bottom:6px;text-transform:uppercase;}
+.receipt-headline{font-family:var(--font-d);font-size:32px;font-weight:900;color:var(--text);line-height:1;margin-bottom:6px;}
+.receipt-sub{font-size:13px;color:var(--text-3);margin-bottom:4px;}
+.receipt-divider{height:1px;background:var(--border);margin:20px 0;}
+.receipt-section-label{font-family:var(--font-m);font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:var(--text-3);margin-bottom:8px;}
+.receipt-row{font-size:14px;color:var(--text);line-height:1.6;}
+.receipt-row.muted{font-size:12px;color:var(--text-2);}
+.receipt-line-item{display:flex;justify-content:space-between;font-size:13px;color:var(--text-2);margin-bottom:8px;}
+.receipt-line-item.receipt-total{font-size:14px;color:var(--text);font-weight:500;padding-top:10px;border-top:1px solid var(--border);margin-top:6px;}
+.receipt-paid{color:var(--green);display:flex;align-items:center;gap:6px;}
+.receipt-badge-paid{font-family:var(--font-m);font-size:8px;letter-spacing:0.1em;background:rgba(26,122,74,0.08);border:1px solid rgba(26,122,74,0.18);color:var(--green);padding:2px 6px;}
+.receipt-badge-due{font-family:var(--font-m);font-size:8px;letter-spacing:0.1em;background:rgba(139,105,20,0.08);border:1px solid rgba(139,105,20,0.18);color:var(--amber);padding:2px 6px;}
+.receipt-footer-note{margin-top:20px;font-family:var(--font-m);font-size:10px;color:var(--text-3);letter-spacing:0.04em;text-align:center;}
+.receipt-actions{display:flex;gap:10px;margin-top:24px;justify-content:flex-end;}
+
+/* FOOTER */
+footer{border-top:1px solid var(--border);padding:28px 48px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;}
+.footer-logo{font-family:var(--font-m);font-size:12px;color:var(--text-3);text-decoration:none;transition:color 0.2s;}
+.footer-logo:hover{color:var(--text);}
+.footer-right{display:flex;align-items:center;gap:32px;}
+.footer-right a{font-size:12px;color:var(--text-3);text-decoration:none;transition:color 0.2s;}
+.footer-right a:hover{color:var(--text);}
+.footer-copy{font-family:var(--font-m);font-size:10px;color:var(--text-3);letter-spacing:0.06em;}
+
+/* PAGE TRANSITIONS */
+body{animation:fadeUp 0.3s var(--ease) both;}
+body.page-exit{opacity:0;transform:translateY(-6px);transition:opacity 0.22s ease,transform 0.22s ease;pointer-events:none;}
 
 /* RESPONSIVE */
-@media(max-width:900px){
-  #app{grid-template-columns:1fr;}
-  .sidebar{display:none;}
-  .topbar-logo{width:auto;padding:0 20px;}
-  .page{padding:20px 16px;}
-  .stats-grid{grid-template-columns:1fr 1fr;gap:1px;}
-  .field-row{grid-template-columns:1fr;}
+@media(max-width:940px){
+  nav{padding:0 20px;}
+  .nav-center,.nav-cta{display:none;}
+  .nav-hamburger{display:flex;}
+  .section-wrap{padding:72px 24px;}
+  #hero{padding:72px 24px 52px;}
+  .hero-bottom{grid-template-columns:1fr;gap:28px;}
+  .hero-ctas{justify-content:flex-start;}
+  .booking-layout{grid-template-columns:1fr;gap:40px;}
+  footer{padding:20px 24px;}
+}
+@media(max-width:600px){
+  #hero{padding:72px 20px 44px;min-height:auto;}
+  .hero-heading{font-size:clamp(60px,16vw,100px);}
+  .hero-bottom{margin-top:28px;gap:24px;}
+  .hero-ctas{flex-direction:column;width:100%;}
+  .hero-ctas .btn{width:100%;justify-content:center;}
+  .hero-stats-row{margin-top:40px;padding-top:24px;}
+  .stat{padding-right:16px;margin-right:16px;}
+  .stat-num{font-size:36px;}
+  .section-wrap{padding:56px 20px;}
+  .section-title{font-size:clamp(34px,9vw,52px);margin-bottom:32px;}
+  .portfolio-grid{grid-template-columns:1fr 1fr;gap:2px;}
+  .photo-slot:nth-child(1){grid-column:span 2;aspect-ratio:16/9;}
+  .photo-slot:nth-child(n+2){grid-column:span 1;aspect-ratio:4/3;}
+  .hp-item{height:160px !important;}
+  .hp-item:nth-child(n){width:240px;}
+  .event-row{grid-template-columns:64px 1fr;gap:12px;padding:16px 0;}
+  .event-day{font-size:28px;}
+  .badge,.event-row .btn-ghost-outline{display:none;}
+  .booking-layout{gap:0;}
+  .booking-left{display:none;}
+  .booking-form-wrap{padding:24px 18px;}
+  .form-row-2{grid-template-columns:1fr;gap:0;}
+  footer{flex-direction:column;align-items:flex-start;gap:14px;padding:20px;}
+  .receipt-modal{padding:28px 20px 22px;}
+  .receipt-actions{flex-direction:column;}
+  .receipt-actions .btn{width:100%;justify-content:center;}
+}
+@media(max-width:390px){
+  nav{padding:0 16px;}
+  .hero-heading{font-size:clamp(52px,16vw,80px);}
+  .section-wrap{padding:48px 16px;}
+  .booking-form-wrap{padding:18px 14px;}
+  .hero-stats-row{flex-wrap:wrap;gap:20px;}
+  .stat{border-right:none;padding-right:0;margin-right:0;flex:0 0 calc(50% - 10px);}
 }
 </style>
 </head>
 <body>
 
-<!-- LOGIN -->
-<div id="login-screen">
-  <div class="login-wrap">
-    <div class="login-logo">qisen<span>.</span>shoots</div>
-    <div class="login-title">Admin</div>
-    <div class="login-sub">Sign in to manage your bookings.</div>
-    <div class="login-field"><label class="login-label" for="login-email">Email</label><input class="login-input" id="login-email" type="email" placeholder="you@example.com" autocomplete="email"></div>
-    <div class="login-field"><label class="login-label" for="login-pass">Password</label><input class="login-input" id="login-pass" type="password" placeholder="••••••••" autocomplete="current-password"></div>
-    <button class="login-btn" id="login-btn">Sign in →</button>
-    <div class="login-err" id="login-err"></div>
-  </div>
-</div>
+<nav>
+  <a href="#hero" class="nav-logo">qisen<span class="nav-logo-dot">.</span>shoots</a>
+  <ul class="nav-center" id="nav-center">
+    <li><a href="#hero"          data-nav="home">Home</a></li>
+    <li><a href="portfolio.html" data-nav="portfolio">Portfolio</a></li>
+    <li><a href="#events"        data-nav="events">Events</a></li>
+    <li><a href="#packages"      data-nav="packages">Packages</a></li>
+    <li><a href="#booking"       data-nav="booking">Book</a></li>
+  </ul>
+  <div class="nav-indicator" id="nav-indicator"></div>
+  <a href="#booking" class="nav-cta">Book a shoot</a>
+  <button class="nav-hamburger" id="nav-hamburger" aria-label="Menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
 
-<!-- APP -->
-<div id="app">
-  <div class="topbar">
-    <div class="topbar-logo">qisen<span class="topbar-logo-dot">.</span>shoots</div>
-    <div class="topbar-right">
-      <span class="topbar-user" id="sidebar-user"></span>
-      <button class="signout-btn" id="signout-btn">Sign out</button>
+<nav class="nav-drawer" id="nav-drawer" aria-hidden="true">
+  <a href="#hero"          onclick="closeDrawer()">Home</a>
+  <a href="portfolio.html" onclick="closeDrawer()">Portfolio</a>
+  <a href="#events"        onclick="closeDrawer()">Events</a>
+  <a href="#packages"      onclick="closeDrawer()">Packages</a>
+  <a href="#booking"       onclick="closeDrawer()">Book</a>
+  <a href="#booking" class="nav-drawer-cta" onclick="closeDrawer()">Book a shoot</a>
+</nav>
+
+<section id="hero">
+  <div class="hero-bg-text">SHOOT</div>
+  <div class="hero-inner">
+    <div class="hero-kicker"><span class="kicker-line"></span>Car meet photography — Adelaide, SA</div>
+    <h1 class="hero-heading">CAPTURE<br><em>EVERY</em><br>DETAIL.</h1>
+    <div class="hero-bottom">
+      <p class="hero-sub">Professional on-location photography for car meets and events across Adelaide. High-resolution edits, fast delivery, zero fuss.</p>
+      <div class="hero-ctas">
+        <a href="#booking" class="btn btn-primary">Book your session</a>
+        <a href="#events" class="btn btn-ghost">View events</a>
+      </div>
+    </div>
+    <div class="hero-stats-row">
+      <div class="stat"><div class="stat-num">120+</div><div class="stat-lbl">Shoots completed</div></div>
+      <div class="stat"><div class="stat-num">48h</div><div class="stat-lbl">Delivery time</div></div>
+      <div class="stat"><div class="stat-num">100%</div><div class="stat-lbl">Digital delivery</div></div>
     </div>
   </div>
+</section>
 
-  <aside class="sidebar">
-    <div class="sidebar-section-label">Overview</div>
-    <button class="nav-item active" data-page="dashboard">
-      <svg class="nav-item-icon" viewBox="0 0 16 16"><rect x="1" y="1" width="6" height="6"/><rect x="9" y="1" width="6" height="6"/><rect x="1" y="9" width="6" height="6"/><rect x="9" y="9" width="6" height="6"/></svg>Dashboard
-    </button>
-    <button class="nav-item" data-page="bookings">
-      <svg class="nav-item-icon" viewBox="0 0 16 16"><rect x="2" y="2" width="12" height="12" rx="1"/><line x1="5" y1="5" x2="11" y2="5"/><line x1="5" y1="8" x2="11" y2="8"/><line x1="5" y1="11" x2="8" y2="11"/></svg>Bookings
-      <span class="nav-badge" id="nav-pending-count">0</span>
-    </button>
-    <div class="sidebar-divider"></div>
-    <div class="sidebar-section-label">Content</div>
-    <button class="nav-item" data-page="events">
-      <svg class="nav-item-icon" viewBox="0 0 16 16"><rect x="2" y="3" width="12" height="11" rx="1"/><line x1="5" y1="1" x2="5" y2="5"/><line x1="11" y1="1" x2="11" y2="5"/><line x1="2" y1="7" x2="14" y2="7"/></svg>Events
-    </button>
-    <button class="nav-item" data-page="packages">
-      <svg class="nav-item-icon" viewBox="0 0 16 16"><rect x="2" y="2" width="12" height="12"/><line x1="2" y1="8" x2="14" y2="8"/><line x1="8" y1="2" x2="8" y2="8"/></svg>Packages
-    </button>
-    <button class="nav-item" data-page="portfolio">
-      <svg class="nav-item-icon" viewBox="0 0 16 16"><rect x="1" y="3" width="14" height="10" rx="1"/><circle cx="5.5" cy="8" r="1.5"/><polyline points="9 6 14 11"/></svg>Portfolio
-    </button>
-    <div class="sidebar-divider"></div>
-    <div class="sidebar-section-label">Records</div>
-    <button class="nav-item" data-page="customers">
-      <svg class="nav-item-icon" viewBox="0 0 16 16"><circle cx="8" cy="5" r="3"/><path d="M2 14c0-3.3 2.7-6 6-6s6 2.7 6 6"/></svg>Customers
-    </button>
-    <button class="nav-item" data-page="payments">
-      <svg class="nav-item-icon" viewBox="0 0 16 16"><rect x="1" y="4" width="14" height="9" rx="1"/><line x1="1" y1="7" x2="15" y2="7"/></svg>Payments
-    </button>
-  </aside>
-
-  <main>
-    <!-- DASHBOARD -->
-    <div class="page active" id="page-dashboard">
-      <div class="page-header"><div><div class="page-title">Dashboard</div><div class="page-sub">Overview of your bookings</div></div></div>
-      <div class="stats-grid">
-        <div class="stat-card"><div class="stat-card-label">Total bookings</div><div class="stat-card-value" id="s-total">—</div></div>
-        <div class="stat-card"><div class="stat-card-label">Pending</div><div class="stat-card-value" id="s-pending">—</div></div>
-        <div class="stat-card"><div class="stat-card-label">Confirmed</div><div class="stat-card-value" id="s-confirmed">—</div></div>
-        <div class="stat-card"><div class="stat-card-label">Revenue</div><div class="stat-card-value" id="s-revenue">—</div></div>
-      </div>
-      <div class="table-wrap">
-        <div class="table-toolbar"><span class="table-toolbar-title">Recent bookings</span></div>
-        <table><thead><tr><th>Customer</th><th>Event</th><th>Package</th><th>Status</th><th>Deposit</th><th>Date</th></tr></thead>
-        <tbody id="dash-bookings-tbody"><tr><td colspan="6"><div class="loading">Loading…</div></td></tr></tbody></table>
-      </div>
-    </div>
-
-    <!-- BOOKINGS -->
-    <div class="page" id="page-bookings">
-      <div class="page-header"><div><div class="page-title">Bookings</div><div class="page-sub">All booking submissions</div></div></div>
-      <div class="table-wrap">
-        <div class="table-toolbar">
-          <span class="table-toolbar-title" id="bookings-count">— bookings</span>
-          <input class="table-search" id="bookings-search" placeholder="Search name, email…">
-        </div>
-        <table><thead><tr><th>Customer</th><th>Car</th><th>Event</th><th>Package</th><th>Status</th><th>Deposit</th><th>Submitted</th><th></th></tr></thead>
-        <tbody id="bookings-tbody"><tr><td colspan="8"><div class="loading">Loading…</div></td></tr></tbody></table>
-      </div>
-    </div>
-
-    <!-- EVENTS -->
-    <div class="page" id="page-events">
-      <div class="page-header">
-        <div><div class="page-title">Events</div><div class="page-sub">Manage upcoming car meets</div></div>
-        <button class="btn btn-primary" id="new-event-btn"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>New event</button>
-      </div>
-      <div class="table-wrap">
-        <div class="table-toolbar"><span class="table-toolbar-title" id="events-count">— events</span></div>
-        <table><thead><tr><th>Date</th><th>Title</th><th>Location</th><th>Capacity</th><th>Booked</th><th>Remaining</th><th>Status</th><th>Visible</th><th></th></tr></thead>
-        <tbody id="events-tbody"><tr><td colspan="9"><div class="loading">Loading…</div></td></tr></tbody></table>
-      </div>
-    </div>
-
-    <!-- PACKAGES -->
-    <div class="page" id="page-packages">
-      <div class="page-header">
-        <div><div class="page-title">Packages</div><div class="page-sub">Photography packages and pricing</div></div>
-        <button class="btn btn-primary" id="new-pkg-btn"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>New package</button>
-      </div>
-      <div id="pkg-preview-grid" class="pkg-preview-grid"><div class="loading" style="grid-column:1/-1">Loading…</div></div>
-    </div>
-
-    <!-- CUSTOMERS -->
-    <div class="page" id="page-customers">
-      <div class="page-header"><div><div class="page-title">Customers</div><div class="page-sub">All people who have enquired</div></div></div>
-      <div class="table-wrap">
-        <div class="table-toolbar">
-          <span class="table-toolbar-title" id="customers-count">— customers</span>
-          <input class="table-search" id="customers-search" placeholder="Search name or email…">
-        </div>
-        <table><thead><tr><th>Name</th><th>Email</th><th>Phone</th><th>Instagram</th><th>Bookings</th><th>Joined</th><th></th></tr></thead>
-        <tbody id="customers-tbody"><tr><td colspan="7"><div class="loading">Loading…</div></td></tr></tbody></table>
-      </div>
-    </div>
-
-    <!-- PAYMENTS -->
-    <div class="page" id="page-payments">
-      <div class="page-header">
-        <div><div class="page-title">Payments</div><div class="page-sub">Deposit and payment records</div></div>
-        <button class="btn btn-primary" id="new-payment-btn">Log manual payment</button>
-      </div>
-      <div class="table-wrap">
-        <div class="table-toolbar"><span class="table-toolbar-title" id="payments-count">— payments</span></div>
-        <table><thead><tr><th>Booking</th><th>Customer</th><th>Amount</th><th>Provider</th><th>Status</th><th>Ref</th><th>Date</th><th></th></tr></thead>
-        <tbody id="payments-tbody"><tr><td colspan="8"><div class="loading">Loading…</div></td></tr></tbody></table>
-      </div>
-    </div>
-
-    <!-- PORTFOLIO -->
-    <div class="page" id="page-portfolio">
-      <div class="page-header">
-        <div><div class="page-title">Portfolio</div><div class="page-sub">Manage photos shown on the site</div></div>
-        <div style="display:flex;gap:10px;align-items:center;">
-          <span class="table-toolbar-title" id="portfolio-count">— photos</span>
-          <button class="btn btn-primary" id="portfolio-upload-btn"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Upload photos</button>
-        </div>
-      </div>
-      <div class="portfolio-upload-zone" id="portfolio-drop-zone">
-        <input type="file" id="portfolio-file-input" accept="image/jpeg,image/png,image/webp" multiple>
-        <div style="font-size:20px;margin-bottom:10px;color:var(--text-3);">↑</div>
-        <div class="upload-zone-label">Drop photos here or <span>click to upload</span></div>
-        <div style="font-family:var(--font-m);font-size:10px;color:var(--text-3);margin-top:6px;letter-spacing:0.04em;">JPG, PNG or WebP · Max 10MB each</div>
-        <div class="upload-progress" id="upload-progress"><div class="upload-progress-bar" id="upload-bar"></div></div>
-      </div>
-      <div class="portfolio-grid-admin" id="portfolio-grid-admin"><div class="loading" style="grid-column:1/-1">Loading portfolio…</div></div>
-    </div>
-  </main>
-</div>
-
-<!-- MODALS -->
-<div class="modal-backdrop" id="modal-booking">
-  <div class="modal">
-    <div class="modal-header"><div class="modal-title">Booking Detail</div><button class="modal-close" data-close="modal-booking">×</button></div>
-    <div class="modal-body" id="modal-booking-body"></div>
-    <div class="modal-footer">
-      <button class="btn btn-danger btn-sm" id="booking-delete-btn">Delete</button>
-      <button class="btn btn-ghost btn-sm" data-close="modal-booking">Close</button>
-      <button class="btn btn-primary btn-sm" id="booking-save-btn">Save changes</button>
-    </div>
-  </div>
-</div>
-
-<div class="modal-backdrop" id="modal-event">
-  <div class="modal">
-    <div class="modal-header"><div class="modal-title" id="event-modal-title">New Event</div><button class="modal-close" data-close="modal-event">×</button></div>
-    <div class="modal-body">
-      <input type="hidden" id="ev-id">
-      <div class="field-row">
-        <div class="field"><label class="field-label">Title</label><input class="field-input" id="ev-title" placeholder="Adelaide Car Meet"></div>
-        <div class="field"><label class="field-label">Location</label><input class="field-input" id="ev-location" placeholder="Wayville SA"></div>
-      </div>
-      <div class="field-row">
-        <div class="field"><label class="field-label">Date &amp; Time</label><input class="field-input" id="ev-date" type="datetime-local"></div>
-        <div class="field"><label class="field-label">Capacity</label><input class="field-input" id="ev-capacity" type="number" min="1" value="10"></div>
-      </div>
-      <div class="field-row">
-        <div class="field"><label class="field-label">Status</label>
-          <select class="field-select" id="ev-status"><option value="open">Open</option><option value="limited">Limited</option><option value="sold_out">Sold out</option><option value="cancelled">Cancelled</option><option value="archived">Archived</option></select>
-        </div>
-        <div class="field" style="display:flex;align-items:center;padding-top:24px;">
-          <label class="field-check"><input type="checkbox" id="ev-public" checked> Visible on frontend</label>
-        </div>
-      </div>
-      <div class="field"><label class="field-label">Description (optional)</label><textarea class="field-textarea" id="ev-desc" placeholder="Any details…"></textarea></div>
-    </div>
-    <div class="modal-footer">
-      <button class="btn btn-danger btn-sm" id="event-delete-btn" style="display:none;">Delete</button>
-      <button class="btn btn-ghost btn-sm" data-close="modal-event">Cancel</button>
-      <button class="btn btn-primary btn-sm" id="event-save-btn">Save event</button>
-    </div>
-  </div>
-</div>
-
-<div class="modal-backdrop" id="modal-package">
-  <div class="modal" style="max-width:580px;">
-    <div class="modal-header"><div class="modal-title" id="pkg-modal-title">New Package</div><button class="modal-close" data-close="modal-package">×</button></div>
-    <div class="modal-body">
-      <input type="hidden" id="pkg-id">
-      <div class="field-row">
-        <div class="field"><label class="field-label">Name</label><input class="field-input" id="pkg-name" placeholder="Standard"></div>
-        <div class="field"><label class="field-label">Tagline</label><input class="field-input" id="pkg-tagline" placeholder="Short description shown on card"></div>
-      </div>
-      <div class="field-row">
-        <div class="field"><label class="field-label">Price</label><div style="position:relative;"><span style="position:absolute;left:11px;top:50%;transform:translateY(-50%);color:var(--text-3);font-size:13px;pointer-events:none;">$</span><input class="field-input" id="pkg-price-display" type="number" placeholder="140" style="padding-left:22px;"></div></div>
-        <div class="field"><label class="field-label">Deposit</label><div style="position:relative;"><span style="position:absolute;left:11px;top:50%;transform:translateY(-50%);color:var(--text-3);font-size:13px;pointer-events:none;">$</span><input class="field-input" id="pkg-deposit-display" type="number" placeholder="50" style="padding-left:22px;" value="50"></div></div>
-      </div>
-      <div class="field-row">
-        <div class="field"><label class="field-label">Image count</label><input class="field-input" id="pkg-images" type="number" min="1" value="10"></div>
-        <div class="field"><label class="field-label">Revision rounds</label><input class="field-input" id="pkg-revisions" type="number" min="0" value="1"></div>
-      </div>
-      <div class="field-row">
-        <div class="field"><label class="field-label">Turnaround (hrs)</label><input class="field-input" id="pkg-turnaround" type="number" value="48"></div>
-        <div class="field"><label class="field-label">Sort order</label><input class="field-input" id="pkg-sort" type="number" value="0" placeholder="0 = first"></div>
-      </div>
-      <div class="field">
-        <label class="field-label" style="margin-bottom:10px;">Inclusions</label>
-        <div style="display:flex;gap:8px;flex-wrap:wrap;">
-          <label class="pkg-toggle-pill" id="pill-interior"><input type="checkbox" id="pkg-interior" style="display:none;"><span>Interior shots</span></label>
-          <label class="pkg-toggle-pill" id="pill-action"><input type="checkbox" id="pkg-action" style="display:none;"><span>Action shots</span></label>
-          <label class="pkg-toggle-pill" id="pill-social"><input type="checkbox" id="pkg-social" style="display:none;"><span>Social media crops</span></label>
-        </div>
-      </div>
-      <div class="field">
-        <label class="field-label" style="margin-bottom:10px;">Status</label>
-        <div style="display:flex;gap:8px;flex-wrap:wrap;">
-          <label class="pkg-toggle-pill" id="pill-popular"><input type="checkbox" id="pkg-popular" style="display:none;"><span>⭐ Mark as Popular</span></label>
-          <label class="pkg-toggle-pill" id="pill-active"><input type="checkbox" id="pkg-active" checked style="display:none;"><span>Active (visible)</span></label>
+<section id="portfolio" class="section-wrap">
+  <div class="section-inner">
+    <div class="eyebrow reveal">Selected work</div>
+    <h2 class="section-title reveal">RECENT<br>WORK</h2>
+    <div id="hp-portfolio" class="reveal">
+      <!-- Placeholder shown until photos load -->
+      <div class="hp-scroll-wrap">
+        <div class="portfolio-grid">
+          <div class="photo-slot"></div><div class="photo-slot"></div>
+          <div class="photo-slot"></div><div class="photo-slot"></div><div class="photo-slot"></div>
         </div>
       </div>
     </div>
-    <div class="modal-footer">
-      <button class="btn btn-danger btn-sm" id="pkg-delete-btn" style="display:none;">Delete</button>
-      <button class="btn btn-ghost btn-sm" data-close="modal-package">Cancel</button>
-      <button class="btn btn-primary btn-sm" id="pkg-save-btn">Save package</button>
+    <div class="hp-portfolio-footer reveal"><a href="portfolio.html" class="hp-view-all">View all work</a></div>
+  </div>
+</section>
+
+<section id="events" class="section-wrap">
+  <div class="section-inner">
+    <div class="eyebrow reveal">What's coming up</div>
+    <h2 class="section-title reveal">UPCOMING<br>EVENTS</h2>
+    <div class="events-list reveal">
+      <div class="event-row">
+        <div class="event-date-block"><span class="event-day">12</span><span class="event-mon">Apr 2025</span></div>
+        <div class="event-details"><div class="event-name">Adelaide Car Meet — Wayville Showgrounds</div><div class="event-location">Wayville, Adelaide SA</div></div>
+        <span class="badge badge-open">Spots open</span>
+        <a href="#booking" class="btn btn-ghost-outline">Book →</a>
+      </div>
+      <div class="event-row">
+        <div class="event-date-block"><span class="event-day">19</span><span class="event-mon">Apr 2025</span></div>
+        <div class="event-details"><div class="event-name">JDM Sunday — Hindmarsh Square</div><div class="event-location">Hindmarsh Square, Adelaide SA</div></div>
+        <span class="badge badge-open">Spots open</span>
+        <a href="#booking" class="btn btn-ghost-outline">Book →</a>
+      </div>
+      <div class="event-row booked">
+        <div class="event-date-block"><span class="event-day">26</span><span class="event-mon">Apr 2025</span></div>
+        <div class="event-details"><div class="event-name">Euro Collective — Victoria Park</div><div class="event-location">Victoria Park, Adelaide SA</div></div>
+        <span class="badge badge-full">Fully booked</span>
+        <button class="btn btn-ghost-outline" disabled>Book →</button>
+      </div>
+      <div class="event-row">
+        <div class="event-date-block"><span class="event-day">03</span><span class="event-mon">May 2025</span></div>
+        <div class="event-details"><div class="event-name">Import Alliance SA — Clipsal Park</div><div class="event-location">Clipsal Park, Wingfield SA</div></div>
+        <span class="badge badge-open">Spots open</span>
+        <a href="#booking" class="btn btn-ghost-outline">Book →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="packages" class="section-wrap">
+  <div class="section-inner">
+    <div class="eyebrow reveal">What's included</div>
+    <h2 class="section-title reveal">PACKAGES</h2>
+    <div class="packages-wrap reveal">
+      <button class="pkg-arrow prev" id="pkg-prev" aria-label="Previous"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
+      <div class="packages-viewport" id="packages-viewport">
+        <div class="packages-grid" id="packages-grid">
+          <div class="pkg">
+            <div class="pkg-top-line"><span class="pkg-tier">Essential</span></div>
+            <div class="pkg-count">5</div><div class="pkg-count-unit">images included</div>
+            <div class="pkg-price">$80<span class="pkg-gst"> + gst</span></div>
+            <p class="pkg-desc">Clean, edited shots of your car at the meet.</p>
+            <div class="pkg-divider"></div>
+            <ul class="pkg-features">
+              <li><span class="feat-dash">—</span>5 fully edited images</li>
+              <li><span class="feat-dash">—</span>48h turnaround</li>
+              <li><span class="feat-dash">—</span>Personal use licence</li>
+            </ul>
+            <button class="btn btn-ghost">Select package</button>
+          </div>
+          <div class="pkg featured">
+            <div class="pkg-top-line"><span class="pkg-tier">Standard</span><span class="pkg-popular-badge">Popular</span></div>
+            <div class="pkg-count">10</div><div class="pkg-count-unit">images included</div>
+            <div class="pkg-price">$140<span class="pkg-gst"> + gst</span></div>
+            <p class="pkg-desc">Wide shots, close details, a mix of angles that tell the full story of your build.</p>
+            <div class="pkg-divider"></div>
+            <ul class="pkg-features">
+              <li><span class="feat-dash">—</span>10 fully edited images</li>
+              <li><span class="feat-dash">—</span>Exterior + detail coverage</li>
+              <li><span class="feat-dash">—</span>48h turnaround</li>
+              <li><span class="feat-dash">—</span>1 revision round</li>
+            </ul>
+            <button class="btn btn-primary">Select package</button>
+          </div>
+          <div class="pkg">
+            <div class="pkg-top-line"><span class="pkg-tier">Premium</span></div>
+            <div class="pkg-count">20</div><div class="pkg-count-unit">images included</div>
+            <div class="pkg-price">$240<span class="pkg-gst"> + gst</span></div>
+            <p class="pkg-desc">Full-coverage with interior shots, action frames, and social media crops.</p>
+            <div class="pkg-divider"></div>
+            <ul class="pkg-features">
+              <li><span class="feat-dash">—</span>20 fully edited images</li>
+              <li><span class="feat-dash">—</span>Interior + action shots</li>
+              <li><span class="feat-dash">—</span>Social media crops</li>
+              <li><span class="feat-dash">—</span>48h turnaround</li>
+              <li><span class="feat-dash">—</span>2 revision rounds</li>
+            </ul>
+            <button class="btn btn-ghost">Select package</button>
+          </div>
+        </div>
+      </div>
+      <button class="pkg-arrow next" id="pkg-next" aria-label="Next"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button>
+    </div>
+    <div class="pkg-dots" id="pkg-dots"></div>
+  </div>
+</section>
+
+<section id="booking" class="section-wrap">
+  <div class="section-inner">
+    <div class="booking-layout">
+      <div class="booking-left reveal">
+        <div class="eyebrow">Get in touch</div>
+        <h2>BOOK<br>A SHOOT</h2>
+        <p class="booking-sub">Fill in your details and I'll get back to you within 24 hours to confirm your spot.</p>
+        <div class="booking-meta">
+          <div class="booking-meta-item">
+            <div class="meta-icon"><svg viewBox="0 0 24 24"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/></svg></div>
+            <div class="meta-text"><strong>Adelaide, South Australia</strong>Available across the greater Adelaide metro area</div>
+          </div>
+          <div class="booking-meta-item">
+            <div class="meta-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
+            <div class="meta-text"><strong>48 hour delivery</strong>Fully edited images sent to your online gallery</div>
+          </div>
+          <div class="booking-meta-item">
+            <div class="meta-icon"><svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg></div>
+            <div class="meta-text"><strong>$50 deposit to confirm</strong>Refundable if cancelled 72+ hours before the event</div>
+          </div>
+        </div>
+      </div>
+      <div class="booking-form-wrap reveal">
+        <div class="form-row-2">
+          <div class="form-group"><label class="form-label" for="fname">First name</label><input type="text" id="fname" placeholder="Alex" required></div>
+          <div class="form-group"><label class="form-label" for="lname">Last name</label><input type="text" id="lname" placeholder="Chen"></div>
+        </div>
+        <div class="form-group"><label class="form-label" for="email">Email</label><input type="email" id="email" placeholder="alex@example.com" required></div>
+        <div class="form-group"><label class="form-label" for="phone">Phone</label><input type="tel" id="phone" placeholder="04xx xxx xxx"></div>
+        <div class="form-group"><label class="form-label" for="event">Event</label><select id="event" required><option value="">Select an event</option></select></div>
+        <div class="form-group"><label class="form-label" for="package">Package</label><select id="package" required><option value="">Select a package</option></select></div>
+        <div class="form-group"><label class="form-label" for="car">Car (make &amp; model)</label><input type="text" id="car" placeholder="e.g. Toyota Supra A90"></div>
+        <div class="form-group"><label class="form-label" for="social">Social media consent</label>
+          <select id="social"><option value="">Prefer not to say</option><option value="yes">Yes — tag me in posts</option><option value="no">No — keep my car private</option></select>
+        </div>
+        <div class="form-group"><label class="form-label" for="notes">Notes (optional)</label><textarea id="notes" placeholder="Anything I should know…"></textarea></div>
+        <div id="errorBanner" style="display:none;background:rgba(192,57,43,0.06);border:1px solid rgba(192,57,43,0.18);padding:11px 14px;color:var(--red);font-family:var(--font-m);font-size:11px;letter-spacing:0.04em;margin-bottom:10px;"></div>
+        <button class="btn btn-primary btn-submit" id="submitBtn" onclick="handleSubmit(event)">Pay $50 deposit &amp; confirm booking →</button>
+        <div class="form-note">Your deposit secures your spot. The remaining balance is due on the day of the shoot.</div>
+        <div class="success-banner" id="successBanner">✓ Booking confirmed — check your email for details.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="receipt-backdrop" id="receiptModal">
+  <div class="receipt-modal">
+    <button class="receipt-close" onclick="closeReceiptModal()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    <div id="receiptBody"></div>
+    <div class="receipt-actions">
+      <a class="btn btn-ghost" href="#booking" onclick="closeReceiptModal()">Book another</a>
+      <button class="btn btn-primary" onclick="closeReceiptModal()">Done</button>
     </div>
   </div>
 </div>
 
-<div class="modal-backdrop" id="modal-customer">
-  <div class="modal">
-    <div class="modal-header"><div class="modal-title">Customer Detail</div><button class="modal-close" data-close="modal-customer">×</button></div>
-    <div class="modal-body" id="modal-customer-body"></div>
-    <div class="modal-footer">
-      <button class="btn btn-ghost btn-sm" data-close="modal-customer">Close</button>
-      <button class="btn btn-primary btn-sm" id="customer-save-btn">Save</button>
-    </div>
+<footer>
+  <a href="#hero" class="footer-logo">qisen<span style="color:var(--text-3)">.</span>shoots</a>
+  <div class="footer-right">
+    <a href="portfolio.html">Portfolio</a>
+    <a href="#events">Events</a>
+    <a href="#booking">Book</a>
   </div>
-</div>
-
-<div class="modal-backdrop" id="modal-payment">
-  <div class="modal">
-    <div class="modal-header"><div class="modal-title" id="payment-modal-title">Log Payment</div><button class="modal-close" data-close="modal-payment">×</button></div>
-    <div class="modal-body">
-      <input type="hidden" id="pay-id">
-      <div class="field"><label class="field-label">Booking ID</label><input class="field-input" id="pay-booking-id" placeholder="Paste booking UUID"></div>
-      <div class="field-row">
-        <div class="field"><label class="field-label">Amount (cents)</label><input class="field-input" id="pay-amount" type="number" placeholder="5000 = $50"></div>
-        <div class="field"><label class="field-label">Provider</label><select class="field-select" id="pay-provider"><option value="manual">Manual</option><option value="stripe">Stripe</option></select></div>
-      </div>
-      <div class="field-row">
-        <div class="field"><label class="field-label">Status</label><select class="field-select" id="pay-status"><option value="paid">Paid</option><option value="pending">Pending</option><option value="refunded">Refunded</option><option value="failed">Failed</option></select></div>
-        <div class="field"><label class="field-label">Transaction Ref</label><input class="field-input" id="pay-ref" placeholder="Optional"></div>
-      </div>
-      <div class="field"><label class="field-label">Notes</label><textarea class="field-textarea" id="pay-notes" placeholder="Any notes about this payment…"></textarea></div>
-    </div>
-    <div class="modal-footer">
-      <button class="btn btn-ghost btn-sm" data-close="modal-payment">Cancel</button>
-      <button class="btn btn-primary btn-sm" id="payment-save-btn">Save payment</button>
-    </div>
-  </div>
-</div>
-
-<div class="modal-backdrop" id="modal-portfolio-asset">
-  <div class="modal">
-    <div class="modal-header"><div class="modal-title">Edit Photo</div><button class="modal-close" data-close="modal-portfolio-asset">×</button></div>
-    <div class="modal-body">
-      <input type="hidden" id="pa-id">
-      <div style="margin-bottom:16px;overflow:hidden;aspect-ratio:16/9;background:var(--bg-2);">
-        <img id="pa-preview" src="" alt="" style="width:100%;height:100%;object-fit:cover;">
-      </div>
-      <div class="field"><label class="field-label">Title</label><input class="field-input" id="pa-title" placeholder="e.g. Supra A90 — Victoria Park"></div>
-      <div class="field"><label class="field-label">Alt text</label><input class="field-input" id="pa-alt" placeholder="Descriptive alt text for accessibility"></div>
-      <div class="field"><label class="field-label">Sort order</label><input class="field-input" id="pa-sort" type="number" value="0"></div>
-      <div class="field"><label class="field-label">Tags (comma separated)</label><input class="field-input" id="pa-tags" placeholder="e.g. jdm, stance, detail, rolling"></div>
-      <div class="field" style="display:flex;gap:20px;">
-        <label class="field-check"><input type="checkbox" id="pa-featured"> Featured (hero slot)</label>
-        <label class="field-check"><input type="checkbox" id="pa-visible" checked> Visible on site</label>
-      </div>
-    </div>
-    <div class="modal-footer">
-      <button class="btn btn-danger btn-sm" id="pa-delete-btn">Delete</button>
-      <button class="btn btn-ghost btn-sm" data-close="modal-portfolio-asset">Cancel</button>
-      <button class="btn btn-primary btn-sm" id="pa-save-btn">Save</button>
-    </div>
-  </div>
-</div>
-
-<div id="toast"></div>
+  <span class="footer-copy">Adelaide, SA — 2025</span>
+</footer>
 
 <script type="module">
 import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
-const SUPABASE_URL='https://jiertdgxsqyddpbbbhfw.supabase.co';
-const SUPABASE_ANON_KEY='sb_publishable_MOcEOKPIVnpZ3A78ATq6lg_9NmWO_WJ';
-const sb=createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
-const $=id=>document.getElementById(id);
-const fmt=cents=>cents!=null?`$${(cents/100).toFixed(0)}`:'—';
-const fmtDate=s=>s?new Date(s).toLocaleDateString('en-AU',{day:'numeric',month:'short',year:'numeric'}):'—';
-const fmtDateTime=s=>s?new Date(s).toLocaleDateString('en-AU',{day:'numeric',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'}):'—';
+const SUPABASE_URL = 'https://jiertdgxsqyddpbbbhfw.supabase.co';
+const SUPABASE_ANON_KEY = 'sb_publishable_MOcEOKPIVnpZ3A78ATq6lg_9NmWO_WJ';
+const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-function toast(msg,type='success'){const el=document.createElement('div');el.className=`toast-item ${type}`;el.textContent=msg;$('toast').appendChild(el);setTimeout(()=>el.remove(),3500);}
-function badge(val){if(!val)return'—';return`<span class="badge badge-${val}">${val.replace(/_/g,' ')}</span>`;}
-function openModal(id){$(id).classList.add('open');}
-function closeModal(id){$(id).classList.remove('open');}
-document.querySelectorAll('[data-close]').forEach(el=>el.addEventListener('click',()=>closeModal(el.dataset.close)));
-document.querySelectorAll('.modal-backdrop').forEach(el=>el.addEventListener('click',e=>{if(e.target===el)closeModal(el.id);}));
-
-// AUTH
-let currentUser=null;
-async function checkSession(){const{data:{session}}=await sb.auth.getSession();if(session){showApp(session.user);}else{showLogin();}}
-function showLogin(){$('login-screen').style.display='flex';$('app').style.display='none';}
-function showApp(user){currentUser=user;$('login-screen').style.display='none';$('app').style.display='grid';$('sidebar-user').textContent=user.email;loadDashboard();loadBookings();loadEvents();loadPackages();loadCustomers();loadPayments();loadPortfolioAdmin();}
-$('login-btn').addEventListener('click',async()=>{const email=$('login-email').value.trim(),pass=$('login-pass').value;$('login-btn').textContent='Signing in…';$('login-err').style.display='none';const{data,error}=await sb.auth.signInWithPassword({email,password:pass});$('login-btn').textContent='Sign in →';if(error){$('login-err').textContent=error.message;$('login-err').style.display='block';return;}showApp(data.user);});
-$('login-pass').addEventListener('keydown',e=>{if(e.key==='Enter')$('login-btn').click();});
-$('signout-btn').addEventListener('click',async()=>{await sb.auth.signOut();showLogin();});
-
-// SIDEBAR NAV
-document.querySelectorAll('.nav-item[data-page]').forEach(btn=>{btn.addEventListener('click',()=>{document.querySelectorAll('.nav-item').forEach(b=>b.classList.remove('active'));document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));btn.classList.add('active');$(`page-${btn.dataset.page}`).classList.add('active');});});
-
-// DASHBOARD
-async function loadDashboard(){
-  const[bRes,cRes]=await Promise.all([sb.from('booking_details').select('*').order('created_at',{ascending:false}),sb.from('bookings').select('booking_status,total_price_cents,deposit_status')]);
-  const bookings=bRes.data||[],all=cRes.data||[];
-  const total=all.length,pending=all.filter(b=>b.booking_status==='pending'||b.booking_status==='awaiting_deposit').length,confirmed=all.filter(b=>b.booking_status==='confirmed').length,revenue=all.filter(b=>b.booking_status==='confirmed').reduce((s,b)=>s+(b.total_price_cents||0),0);
-  $('s-total').textContent=total;$('s-pending').textContent=pending;$('s-confirmed').textContent=confirmed;$('s-revenue').textContent=fmt(revenue);
-  const nb=$('nav-pending-count');nb.textContent=pending;nb.classList.toggle('show',pending>0);
-  const tbody=$('dash-bookings-tbody');
-  if(!bookings.length){tbody.innerHTML=`<tr><td colspan="6"><div class="empty"><div class="empty-icon">📋</div><div class="empty-msg">No bookings yet</div></div></td></tr>`;return;}
-  tbody.innerHTML=bookings.slice(0,8).map(b=>`<tr><td class="primary">${b.first_name} ${b.last_name||''}</td><td>${b.event_title||'—'}</td><td>${b.package_name||'—'}</td><td>${badge(b.booking_status)}</td><td>${badge(b.deposit_status)}</td><td class="mono">${fmtDate(b.created_at)}</td></tr>`).join('');
+async function loadEvents() {
+  const { data: events, error } = await supabase.from('events').select('*').eq('is_public', true).neq('status', 'archived').order('event_date', { ascending: true });
+  if (error || !events?.length) return;
+  const list = document.querySelector('.events-list');
+  if (list) {
+    list.innerHTML = events.map(ev => {
+      const date = new Date(ev.event_date);
+      const day = date.getDate();
+      const mon = date.toLocaleDateString('en-AU', { month: 'short', year: 'numeric' });
+      const booked = ev.status === 'sold_out', limited = ev.status === 'limited';
+      let badge = `<span class="badge badge-open">Spots open</span>`;
+      if (booked) badge = `<span class="badge badge-full">Fully booked</span>`;
+      if (limited) badge = `<span class="badge badge-limited">Limited spots</span>`;
+      const btn = booked ? `<button class="btn btn-ghost-outline" disabled>Book →</button>`
+        : `<a href="#booking" class="btn btn-ghost-outline" data-event-id="${ev.id}" data-event-title="${ev.title}">Book →</a>`;
+      return `<div class="event-row${booked?' booked':''}">
+        <div class="event-date-block"><span class="event-day">${day}</span><span class="event-mon">${mon}</span></div>
+        <div class="event-details"><div class="event-name">${ev.title}</div><div class="event-location">${ev.location}</div></div>
+        ${badge}${btn}</div>`;
+    }).join('');
+    list.querySelectorAll('[data-event-id]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const sel = document.getElementById('event');
+        for (let i = 0; i < sel.options.length; i++) { if (sel.options[i].dataset.eventId === btn.dataset.eventId) { sel.selectedIndex = i; break; } }
+      });
+    });
+  }
+  const eventSel = document.getElementById('event');
+  if (eventSel) {
+    eventSel.innerHTML = `<option value="">Select an event</option>`;
+    events.forEach(ev => {
+      if (ev.status === 'sold_out') return;
+      const date = new Date(ev.event_date);
+      const label = `${date.toLocaleDateString('en-AU', { day: 'numeric', month: 'short' })} — ${ev.title}`;
+      const opt = document.createElement('option');
+      opt.value = ev.id; opt.dataset.eventId = ev.id; opt.textContent = label;
+      eventSel.appendChild(opt);
+    });
+  }
 }
 
-// BOOKINGS
-let allBookings=[];
-async function loadBookings(){const{data,error}=await sb.from('booking_details').select('*').order('created_at',{ascending:false});if(error){toast('Failed to load bookings','error');return;}allBookings=data||[];renderBookings(allBookings);}
-function renderBookings(data){
-  $('bookings-count').textContent=`${data.length} booking${data.length!==1?'s':''}`;
-  const tbody=$('bookings-tbody');
-  if(!data.length){tbody.innerHTML=`<tr><td colspan="8"><div class="empty"><div class="empty-icon">📋</div><div class="empty-msg">No bookings found</div></div></td></tr>`;return;}
-  tbody.innerHTML=data.map(b=>`<tr><td class="primary">${b.first_name} ${b.last_name||''}<br><span style="color:var(--text-3);font-size:11px;">${b.email}</span></td><td>${b.car_make_model||'—'}</td><td style="font-size:12px;">${b.event_title||'—'}</td><td>${b.package_name||'—'}</td><td>${badge(b.booking_status)}</td><td>${badge(b.deposit_status)}</td><td class="mono">${fmtDate(b.created_at)}</td><td><button class="btn btn-ghost btn-sm" onclick="openBooking('${b.id}')">View</button></td></tr>`).join('');
+const VISIBLE_CARDS = 3;
+let pkgOffset = 0;
+function buildPkgCard(pkg) {
+  const price = (pkg.price_cents / 100).toFixed(0), popular = !!pkg.is_popular;
+  const features = [];
+  features.push(`${pkg.image_count} fully edited images`);
+  if (pkg.includes_interior) features.push('Exterior, interior + detail'); else features.push('Exterior + detail coverage');
+  if (pkg.includes_action) features.push('Action / rolling shots');
+  if (pkg.includes_social_crops) features.push('Social media crop exports');
+  features.push(`${pkg.turnaround_hours}h turnaround`); features.push('Personal use licence');
+  if (pkg.revision_limit > 0) features.push(`${pkg.revision_limit} revision round${pkg.revision_limit>1?'s':''}`);
+  return `<div class="pkg${popular?' featured':''}">
+    <div class="pkg-top-line"><span class="pkg-tier">${pkg.name}</span>${popular?'<span class="pkg-popular-badge">Popular</span>':''}</div>
+    <div class="pkg-count">${pkg.image_count}</div><div class="pkg-count-unit">images included</div>
+    <div class="pkg-price">$${price}<span class="pkg-gst"> + gst</span></div>
+    <p class="pkg-desc">${pkg.tagline||''}</p><div class="pkg-divider"></div>
+    <ul class="pkg-features">${features.map(f=>`<li><span class="feat-dash">—</span>${f}</li>`).join('')}</ul>
+    <button class="btn ${popular?'btn-primary':'btn-ghost'}" data-pkg-id="${pkg.id}">Select package</button>
+  </div>`;
 }
-$('bookings-search').addEventListener('input',e=>{const q=e.target.value.toLowerCase();renderBookings(allBookings.filter(b=>`${b.first_name} ${b.last_name} ${b.email} ${b.car_make_model||''}`.toLowerCase().includes(q)));});
-window.openBooking=async function(id){
-  const b=allBookings.find(x=>x.id===id);if(!b)return;
-  $('modal-booking-body').innerHTML=`<div class="detail-grid">
-    <div class="detail-item"><div class="detail-item-label">Customer</div><div class="detail-item-val">${b.first_name} ${b.last_name||''}</div></div>
-    <div class="detail-item"><div class="detail-item-label">Email</div><div class="detail-item-val">${b.email}</div></div>
-    <div class="detail-item"><div class="detail-item-label">Phone</div><div class="detail-item-val">${b.phone||'—'}</div></div>
-    <div class="detail-item"><div class="detail-item-label">Instagram</div><div class="detail-item-val">${b.instagram_handle||'—'}</div></div>
-    <div class="detail-item"><div class="detail-item-label">Car</div><div class="detail-item-val">${b.car_make_model||'—'}</div></div>
-    <div class="detail-item"><div class="detail-item-label">Social Consent</div><div class="detail-item-val">${b.social_consent===true?'Yes':b.social_consent===false?'No':'—'}</div></div>
-    <div class="detail-item"><div class="detail-item-label">Event</div><div class="detail-item-val">${b.event_title||'—'}</div></div>
-    <div class="detail-item"><div class="detail-item-label">Package</div><div class="detail-item-val">${b.package_name||'—'} (${fmt(b.package_price_cents)})</div></div>
-    <div class="detail-item"><div class="detail-item-label">Deposit Due</div><div class="detail-item-val">${fmtDateTime(b.deposit_due_at)}</div></div>
-    <div class="detail-item"><div class="detail-item-label">Submitted</div><div class="detail-item-val">${fmtDateTime(b.created_at)}</div></div>
-    </div>${b.notes?`<div class="field"><div class="field-label">Customer notes</div><div style="color:var(--text-2);font-size:13px;background:var(--bg-1);padding:10px 12px;border:1px solid var(--border);">${b.notes}</div></div>`:''}
-    <div class="field-row" style="margin-top:16px;">
-      <div class="field"><label class="field-label">Booking Status</label><select class="field-select" id="bk-status">${['pending','awaiting_deposit','confirmed','cancelled','completed','delivered'].map(s=>`<option value="${s}"${b.booking_status===s?' selected':''}>${s.replace(/_/g,' ')}</option>`).join('')}</select></div>
-      <div class="field"><label class="field-label">Deposit Status</label><select class="field-select" id="bk-deposit">${['unpaid','paid','refund_pending','refunded'].map(s=>`<option value="${s}"${b.deposit_status===s?' selected':''}>${s.replace(/_/g,' ')}</option>`).join('')}</select></div>
+function updateDesktopCarousel(packages) {
+  const viewport = document.getElementById('packages-viewport'), grid = document.getElementById('packages-grid');
+  const prevBtn = document.getElementById('pkg-prev'), nextBtn = document.getElementById('pkg-next');
+  if (!grid||!viewport) return;
+  const count = packages.length, maxOffset = Math.max(0, count - VISIBLE_CARDS);
+  pkgOffset = Math.max(0, Math.min(pkgOffset, maxOffset));
+  grid.querySelectorAll('.pkg:not(.pkg-ghost)').forEach(c => { c.style.width = `${100/VISIBLE_CARDS}%`; });
+  grid.style.transform = `translateX(-${pkgOffset*(100/VISIBLE_CARDS)}%)`;
+  const needArrows = count > VISIBLE_CARDS;
+  if (prevBtn) { prevBtn.classList.toggle('visible', needArrows); prevBtn.disabled = pkgOffset<=0; }
+  if (nextBtn) { nextBtn.classList.toggle('visible', needArrows); nextBtn.disabled = pkgOffset>=maxOffset; }
+  viewport.classList.toggle('sparse', count < VISIBLE_CARDS);
+  grid.querySelectorAll('.pkg-ghost').forEach(g => g.remove());
+  if (count < VISIBLE_CARDS) {
+    for (let i=0;i<VISIBLE_CARDS-count;i++) {
+      const ghost = document.createElement('div'); ghost.className='pkg pkg-ghost';
+      ghost.style.cssText=`width:${100/VISIBLE_CARDS}%;background:transparent;border:none;pointer-events:none;`;
+      grid.appendChild(ghost);
+    }
+  }
+}
+function initMobileDots(packages) {
+  const viewport = document.getElementById('packages-viewport'), dotsEl = document.getElementById('pkg-dots');
+  if (!dotsEl||!viewport||packages.length<=1) return;
+  dotsEl.innerHTML = packages.map((_,i)=>`<button class="pkg-dot${i===0?' active':''}" data-i="${i}" aria-label="Package ${i+1}"></button>`).join('');
+  viewport.addEventListener('scroll',()=>{
+    const cardW=viewport.scrollWidth/packages.length, idx=Math.round(viewport.scrollLeft/cardW);
+    dotsEl.querySelectorAll('.pkg-dot').forEach((d,i)=>d.classList.toggle('active',i===idx));
+  },{passive:true});
+  dotsEl.querySelectorAll('.pkg-dot').forEach(dot=>{
+    dot.addEventListener('click',()=>{ const i=parseInt(dot.dataset.i); viewport.scrollTo({left:i*(viewport.scrollWidth/packages.length),behavior:'smooth'}); });
+  });
+}
+async function loadPackages() {
+  const { data: packages, error } = await supabase.from('packages').select('*').eq('active',true).order('sort_order',{ascending:true});
+  if (error||!packages?.length) return;
+  const grid = document.getElementById('packages-grid');
+  if (grid) {
+    grid.innerHTML = packages.map(pkg=>buildPkgCard(pkg)).join('');
+    const prevBtn=document.getElementById('pkg-prev'), nextBtn=document.getElementById('pkg-next');
+    if (prevBtn) prevBtn.onclick=()=>{pkgOffset=Math.max(0,pkgOffset-1);updateDesktopCarousel(packages);};
+    if (nextBtn) nextBtn.onclick=()=>{pkgOffset=Math.min(packages.length-VISIBLE_CARDS,pkgOffset+1);updateDesktopCarousel(packages);};
+    updateDesktopCarousel(packages); initMobileDots(packages);
+    grid.querySelectorAll('[data-pkg-id]').forEach(btn=>{
+      btn.addEventListener('click',()=>{
+        const sel=document.getElementById('package');
+        for (let i=0;i<sel.options.length;i++){if(sel.options[i].value===btn.dataset.pkgId){sel.selectedIndex=i;break;}}
+        grid.querySelectorAll('.pkg').forEach(c=>c.classList.remove('selected'));
+        btn.closest('.pkg').classList.add('selected');
+        const target=document.getElementById('package')||document.getElementById('booking');
+        target.scrollIntoView({behavior:'smooth',block:'center'});
+        setTimeout(()=>{sel.classList.remove('pkg-prefilled');void sel.offsetWidth;sel.classList.add('pkg-prefilled');setTimeout(()=>sel.classList.remove('pkg-prefilled'),1200);},600);
+      });
+    });
+    const pkgDropdown=document.getElementById('package');
+    if (pkgDropdown){pkgDropdown.addEventListener('change',()=>{const val=pkgDropdown.value;grid.querySelectorAll('.pkg').forEach(card=>{const btn=card.querySelector('[data-pkg-id]');card.classList.toggle('selected',!!btn&&btn.dataset.pkgId===val);});});}
+  }
+  const pkgSel=document.getElementById('package');
+  if (pkgSel){pkgSel.innerHTML=`<option value="">Select a package</option>`;packages.forEach(pkg=>{const opt=document.createElement('option');opt.value=pkg.id;opt.textContent=`${pkg.name} — ${pkg.image_count} images ($${(pkg.price_cents/100).toFixed(0)} + gst)`;pkgSel.appendChild(opt);});}
+}
+
+async function loadPortfolio() {
+  const [dbRes,storageRes]=await Promise.all([
+    supabase.from('portfolio_assets').select('id,image_url,title,alt_text,featured,sort_order').eq('visible',true).order('sort_order',{ascending:true}).limit(12),
+    supabase.storage.from('Portfolio').list('public',{limit:12,sortBy:{column:'created_at',order:'desc'}}),
+  ]);
+  const dbAssets=dbRes.data||[], dbUrls=new Set(dbAssets.map(a=>a.image_url));
+  const storageAssets=(storageRes.data||[]).filter(f=>f.name&&f.name!=='.emptyFolderPlaceholder'&&/\.(jpe?g|png|webp|gif)$/i.test(f.name)).map(f=>({image_url:`${SUPABASE_URL}/storage/v1/object/public/Portfolio/public/${f.name}`,alt_text:f.name.replace(/\.[^.]+$/,''),title:'',featured:false,sort_order:9999})).filter(a=>!dbUrls.has(a.image_url));
+  let assets=[...dbAssets,...storageAssets].slice(0,12);
+  if (!assets.length) return;
+
+  // Shuffle for random feel
+  for (let i=assets.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[assets[i],assets[j]]=[assets[j],assets[i]];}
+
+  // Build items HTML — doubled for seamless infinite scroll
+  const itemsHtml=assets.map(a=>`<div class="hp-item"><img src="${a.image_url}" alt="${a.alt_text||'Portfolio photo'}" loading="lazy"></div>`).join('');
+
+  const container=document.getElementById('hp-portfolio');
+  if (!container) return;
+  container.innerHTML=`<div class="hp-scroll-wrap"><div class="hp-track" id="hp-track">${itemsHtml}${itemsHtml}</div></div>`;
+
+  // Pause on hover is handled by CSS (.hp-track:hover)
+  // Adjust animation duration based on number of photos
+  const track=document.getElementById('hp-track');
+  if (track) track.style.animationDuration=`${Math.max(20, assets.length * 4)}s`;
+}
+
+window.prefillPackage = function(packageName) {
+  const sel=document.getElementById('package');
+  for (let i=0;i<sel.options.length;i++){if(sel.options[i].text.toLowerCase().startsWith(packageName.toLowerCase())){sel.selectedIndex=i;break;}}
+  document.getElementById('booking').scrollIntoView({behavior:'smooth'});
+};
+
+const EDGE_BASE='https://jiertdgxsqyddpbbbhfw.supabase.co/functions/v1';
+async function handleSubmit(e) {
+  e.preventDefault();
+  const checks=[{id:'fname',ok:v=>v.trim().length>0},{id:'email',ok:v=>v.includes('@')&&v.includes('.')},{id:'event',ok:v=>v!==''},{id:'package',ok:v=>v!==''}];
+  let valid=true;
+  checks.forEach(c=>{const el=document.getElementById(c.id);const pass=c.ok(el.value);el.style.borderColor=pass?'':'rgba(192,57,43,0.65)';if(!pass)valid=false;});
+  if (!valid) return;
+  const btn=document.getElementById('submitBtn'), errorBanner=document.getElementById('errorBanner');
+  btn.disabled=true;btn.textContent='Redirecting to payment…';errorBanner.style.display='none';
+  try {
+    const payload={first_name:document.getElementById('fname').value.trim(),last_name:document.getElementById('lname').value.trim()||null,email:document.getElementById('email').value.trim().toLowerCase(),phone:document.getElementById('phone').value.trim()||null,event_id:document.getElementById('event').value,package_id:document.getElementById('package').value,car_make_model:document.getElementById('car').value.trim()||null,social_consent:document.getElementById('social').value==='yes'?true:document.getElementById('social').value==='no'?false:null,notes:document.getElementById('notes').value.trim()||null,success_url:window.location.origin+window.location.pathname+'?session_id={CHECKOUT_SESSION_ID}',cancel_url:window.location.origin+window.location.pathname+'#booking'};
+    const res=await fetch(`${EDGE_BASE}/create-checkout`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
+    const json=await res.json();
+    if (!res.ok||!json.url) throw new Error(json.error||'Failed to create checkout session');
+    window.location.href=json.url;
+  } catch(err){
+    console.error('Checkout error:',err);errorBanner.style.display='block';errorBanner.textContent='✕ '+(err.message||'Something went wrong. Please try again.');btn.disabled=false;btn.textContent='Pay $50 deposit & confirm booking →';
+  }
+}
+window.handleSubmit=handleSubmit;
+
+(async function checkStripeReturn(){
+  const params=new URLSearchParams(window.location.search), sessionId=params.get('session_id');
+  if (!sessionId) return;
+  window.history.replaceState({},'',window.location.pathname+window.location.hash);
+  showReceiptModal(null);
+  try {
+    const res=await fetch(`${EDGE_BASE}/confirm-booking`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({session_id:sessionId})});
+    const json=await res.json();
+    if (!res.ok||!json.booking) throw new Error(json.error||'Could not confirm booking');
+    showReceiptModal(json.booking);
+  } catch(err){
+    console.error('Confirm booking error:',err);
+    const banner=document.getElementById('successBanner'); if(banner)banner.style.display='block';
+    const btn=document.getElementById('submitBtn'); if(btn)btn.style.display='none';
+    const s=document.getElementById('booking'); if(s)s.scrollIntoView({behavior:'smooth'});
+    closeReceiptModal();
+  }
+})();
+
+function fmtAUD(cents){if(!cents&&cents!==0)return'—';return new Intl.NumberFormat('en-AU',{style:'currency',currency:'AUD'}).format(cents/100);}
+function fmtEventDate(iso){if(!iso)return'—';return new Date(iso).toLocaleDateString('en-AU',{weekday:'long',day:'numeric',month:'long',year:'numeric'});}
+function shortRef(id){if(!id)return'—';return'#'+id.replace(/-/g,'').slice(0,8).toUpperCase();}
+function showReceiptModal(booking){
+  const modal=document.getElementById('receiptModal'), body=document.getElementById('receiptBody');
+  if (!modal) return;
+  if (!booking){body.innerHTML=`<div class="receipt-loading">Confirming your booking…</div>`;modal.classList.add('open');document.body.style.overflow='hidden';return;}
+  const deposit=booking.deposit_cents??5000, total=booking.package_price_cents??booking.total_price_cents??0, remaining=total-deposit;
+  body.innerHTML=`<div class="receipt-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+    <div class="receipt-ref">${shortRef(booking.id)}</div>
+    <div class="receipt-headline">Booking Confirmed</div>
+    <div class="receipt-sub">Your deposit has been paid. See you at the shoot.</div>
+    <div class="receipt-divider"></div>
+    <div class="receipt-section"><div class="receipt-section-label">Customer</div>
+      <div class="receipt-row">${booking.first_name||''} ${booking.last_name||''}</div>
+      <div class="receipt-row muted">${booking.email||''}</div>
+      ${booking.car_make_model?`<div class="receipt-row muted">${booking.car_make_model}</div>`:''}
     </div>
-    <div class="field"><label class="field-label">Admin Notes</label><textarea class="field-textarea" id="bk-admin-notes" placeholder="Internal notes…">${b.admin_notes||''}</textarea></div>`;
-  $('booking-save-btn').onclick=async()=>{const{error}=await sb.from('bookings').update({booking_status:$('bk-status').value,deposit_status:$('bk-deposit').value,admin_notes:$('bk-admin-notes').value||null}).eq('id',id);if(error){toast('Save failed: '+error.message,'error');return;}toast('Booking updated');closeModal('modal-booking');loadBookings();loadDashboard();};
-  $('booking-delete-btn').onclick=async()=>{if(!confirm('Delete this booking? This cannot be undone.'))return;const{error}=await sb.from('bookings').delete().eq('id',id);if(error){toast('Delete failed: '+error.message,'error');return;}toast('Booking deleted');closeModal('modal-booking');loadBookings();loadDashboard();};
-  openModal('modal-booking');
-};
-
-// EVENTS
-async function loadEvents(){
-  const{data,error}=await sb.from('event_summary').select('*');if(error){toast('Failed to load events','error');return;}
-  const events=data||[];$('events-count').textContent=`${events.length} event${events.length!==1?'s':''}`;
-  const tbody=$('events-tbody');
-  if(!events.length){tbody.innerHTML=`<tr><td colspan="9"><div class="empty"><div class="empty-icon">📅</div><div class="empty-msg">No events yet</div></div></td></tr>`;return;}
-  tbody.innerHTML=events.map(ev=>`<tr><td class="mono">${fmtDate(ev.event_date)}</td><td class="primary">${ev.title}</td><td>${ev.location}</td><td>${ev.capacity}</td><td>${ev.booked_count}</td><td>${ev.spots_remaining}</td><td>${badge(ev.status)}</td><td>${ev.is_public?`<span class="badge badge-active">Yes</span>`:`<span class="badge badge-inactive">No</span>`}</td><td><button class="btn btn-ghost btn-sm" onclick="openEvent('${ev.id}')">Edit</button></td></tr>`).join('');
+    <div class="receipt-divider"></div>
+    <div class="receipt-section"><div class="receipt-section-label">Event</div>
+      <div class="receipt-row">${booking.event_title||'—'}</div>
+      ${booking.event_date?`<div class="receipt-row muted">${fmtEventDate(booking.event_date)}</div>`:''}
+      ${booking.event_location?`<div class="receipt-row muted">${booking.event_location}</div>`:''}
+    </div>
+    <div class="receipt-divider"></div>
+    <div class="receipt-section"><div class="receipt-section-label">Package</div><div class="receipt-row">${booking.package_name||'—'}</div></div>
+    <div class="receipt-divider"></div>
+    <div class="receipt-section"><div class="receipt-section-label">Payment</div>
+      <div class="receipt-line-item"><span>Deposit paid</span><span class="receipt-paid">${fmtAUD(deposit)} <span class="receipt-badge-paid">PAID</span></span></div>
+      ${remaining>0?`<div class="receipt-line-item"><span>Remaining balance</span><span class="muted">${fmtAUD(remaining)} <span class="receipt-badge-due">DUE ON DAY</span></span></div>`:''}
+      <div class="receipt-line-item receipt-total"><span>Total</span><span>${fmtAUD(total)}</span></div>
+    </div>
+    <div class="receipt-footer-note">A confirmation has been sent to ${booking.email||'your email'}.</div>`;
+  modal.classList.add('open');document.body.style.overflow='hidden';
 }
-$('new-event-btn').addEventListener('click',()=>{$('event-modal-title').textContent='NEW EVENT';$('ev-id').value='';$('ev-title').value='';$('ev-location').value='';$('ev-date').value='';$('ev-capacity').value=10;$('ev-status').value='open';$('ev-public').checked=true;$('ev-desc').value='';$('event-delete-btn').style.display='none';openModal('modal-event');});
-window.openEvent=async function(id){const{data,error}=await sb.from('events').select('*').eq('id',id).single();if(error||!data){toast('Failed to load event','error');return;}$('event-modal-title').textContent='EDIT EVENT';$('ev-id').value=data.id;$('ev-title').value=data.title;$('ev-location').value=data.location;$('ev-date').value=data.event_date?new Date(data.event_date).toISOString().slice(0,16):'';$('ev-capacity').value=data.capacity;$('ev-status').value=data.status;$('ev-public').checked=data.is_public;$('ev-desc').value=data.description||'';$('event-delete-btn').style.display='inline-flex';openModal('modal-event');};
-$('event-save-btn').addEventListener('click',async()=>{const id=$('ev-id').value;const payload={title:$('ev-title').value.trim(),location:$('ev-location').value.trim(),event_date:$('ev-date').value?new Date($('ev-date').value).toISOString():null,capacity:parseInt($('ev-capacity').value),status:$('ev-status').value,is_public:$('ev-public').checked,description:$('ev-desc').value.trim()||null};if(!payload.title||!payload.location||!payload.event_date){toast('Title, location and date are required','error');return;}const{error}=id?await sb.from('events').update(payload).eq('id',id):await sb.from('events').insert(payload);if(error){toast('Save failed: '+error.message,'error');return;}toast(id?'Event updated':'Event created');closeModal('modal-event');loadEvents();});
-$('event-delete-btn').addEventListener('click',async()=>{const id=$('ev-id').value;if(!confirm('Delete this event? This cannot be undone.'))return;const{error}=await sb.from('events').delete().eq('id',id);if(error){toast('Delete failed: '+error.message,'error');return;}toast('Event deleted');closeModal('modal-event');loadEvents();});
+function closeReceiptModal(){const modal=document.getElementById('receiptModal');if(modal)modal.classList.remove('open');document.body.style.overflow='';}
+window.closeReceiptModal=closeReceiptModal;
 
-// PACKAGES
-async function loadPackages(){
-  const{data,error}=await sb.from('packages').select('*').order('sort_order');if(error){toast('Failed to load packages','error');return;}
-  const pkgs=data||[],grid=$('pkg-preview-grid');
-  if(!pkgs.length){grid.innerHTML=`<div class="empty" style="grid-column:1/-1"><div class="empty-icon">📦</div><div class="empty-msg">No packages yet — create one above</div></div>`;return;}
-  grid.innerHTML=pkgs.map(p=>{
-    const price=(p.price_cents/100).toFixed(0);
-    const features=[`${p.image_count} edited images`];
-    if(p.includes_interior)features.push('Interior shots');if(p.includes_action)features.push('Action shots');if(p.includes_social_crops)features.push('Social crops');
-    features.push(`${p.turnaround_hours}h delivery`);if(p.revision_limit>0)features.push(`${p.revision_limit} revision${p.revision_limit>1?'s':''}`);
-    const popBtn=p.is_popular
-      ?`<button class="popular-btn is-set" style="flex:1;" onclick="event.stopPropagation();togglePopular('${p.id}',false)">★ Popular</button>`
-      :`<button class="btn btn-ghost btn-sm" style="flex:1;" onclick="event.stopPropagation();togglePopular('${p.id}',true)">Set popular</button>`;
-    return `<div class="pkg-preview-card${p.is_popular?' is-popular':''}${!p.active?' is-inactive':''}" onclick="openPackage('${p.id}')">
-      ${!p.active?'<div class="pkg-preview-inactive-badge">Inactive</div>':''}
-      <div class="pkg-preview-header"><span class="pkg-preview-tier">${p.name}</span>${p.is_popular?'<span class="pkg-preview-popular">Popular</span>':''}</div>
-      <div class="pkg-preview-count">${p.image_count}</div><div class="pkg-preview-unit">images included</div>
-      <div class="pkg-preview-price">$${price}<span class="gst"> + gst</span></div>
-      <p class="pkg-preview-tagline">${p.tagline||'—'}</p>
-      <ul class="pkg-preview-features">${features.map(f=>`<li>${f}</li>`).join('')}</ul>
-      <div class="pkg-preview-actions">
-        <button class="btn btn-ghost btn-sm" style="flex:1;" onclick="event.stopPropagation();openPackage('${p.id}')">Edit</button>
-        ${popBtn}
-      </div></div>`;
-  }).join('');
-}
-window.togglePopular=async function(id,setPopular){const{error:clearErr}=await sb.from('packages').update({is_popular:false}).neq('id','00000000-0000-0000-0000-000000000000');if(clearErr){toast('Failed to update','error');return;}if(setPopular){const{error}=await sb.from('packages').update({is_popular:true}).eq('id',id);if(error){toast('Failed to update','error');return;}}toast(setPopular?'Marked as popular':'Popular badge removed');loadPackages();};
-function wirePill(pillId,checkId,extraClass){const pill=$(pillId),chk=$(checkId);if(!pill||!chk)return;function sync(){pill.classList.toggle('on',chk.checked);if(extraClass)pill.classList.toggle(extraClass,chk.checked);}sync();pill.addEventListener('click',()=>{chk.checked=!chk.checked;sync();});chk.addEventListener('change',sync);}
-$('new-pkg-btn').addEventListener('click',()=>{$('pkg-modal-title').textContent='NEW PACKAGE';$('pkg-id').value='';$('pkg-name').value='';$('pkg-tagline').value='';$('pkg-price-display').value='';$('pkg-deposit-display').value=50;$('pkg-images').value=10;$('pkg-revisions').value=1;$('pkg-turnaround').value=48;$('pkg-sort').value=0;$('pkg-interior').checked=false;$('pkg-action').checked=false;$('pkg-social').checked=false;$('pkg-popular').checked=false;$('pkg-active').checked=true;$('pkg-delete-btn').style.display='none';wirePill('pill-interior','pkg-interior');wirePill('pill-action','pkg-action');wirePill('pill-social','pkg-social');wirePill('pill-popular','pkg-popular','popular');wirePill('pill-active','pkg-active');openModal('modal-package');});
-window.openPackage=async function(id){const{data,error}=await sb.from('packages').select('*').eq('id',id).single();if(error||!data){toast('Failed to load package','error');return;}$('pkg-modal-title').textContent='EDIT PACKAGE';$('pkg-id').value=data.id;$('pkg-name').value=data.name;$('pkg-tagline').value=data.tagline||'';$('pkg-price-display').value=data.price_cents/100;$('pkg-deposit-display').value=data.deposit_cents/100;$('pkg-images').value=data.image_count;$('pkg-revisions').value=data.revision_limit;$('pkg-turnaround').value=data.turnaround_hours;$('pkg-sort').value=data.sort_order;$('pkg-interior').checked=data.includes_interior;$('pkg-action').checked=data.includes_action;$('pkg-social').checked=data.includes_social_crops;$('pkg-popular').checked=!!data.is_popular;$('pkg-active').checked=data.active;$('pkg-delete-btn').style.display='inline-flex';wirePill('pill-interior','pkg-interior');wirePill('pill-action','pkg-action');wirePill('pill-social','pkg-social');wirePill('pill-popular','pkg-popular','popular');wirePill('pill-active','pkg-active');openModal('modal-package');};
-$('pkg-save-btn').addEventListener('click',async()=>{const id=$('pkg-id').value,priceRaw=parseFloat($('pkg-price-display').value),depositRaw=parseFloat($('pkg-deposit-display').value);if(!$('pkg-name').value.trim()||isNaN(priceRaw)||priceRaw<=0){toast('Name and price are required','error');return;}const isPopular=$('pkg-popular').checked;if(isPopular){await sb.from('packages').update({is_popular:false}).neq('id',id||'00000000-0000-0000-0000-000000000000');}const payload={name:$('pkg-name').value.trim(),tagline:$('pkg-tagline').value.trim()||null,price_cents:Math.round(priceRaw*100),deposit_cents:Math.round(depositRaw*100),image_count:parseInt($('pkg-images').value),revision_limit:parseInt($('pkg-revisions').value),turnaround_hours:parseInt($('pkg-turnaround').value),sort_order:parseInt($('pkg-sort').value),includes_interior:$('pkg-interior').checked,includes_action:$('pkg-action').checked,includes_social_crops:$('pkg-social').checked,is_popular:isPopular,active:$('pkg-active').checked};const{error}=id?await sb.from('packages').update(payload).eq('id',id):await sb.from('packages').insert(payload);if(error){toast('Save failed: '+error.message,'error');return;}toast(id?'Package updated':'Package created');closeModal('modal-package');loadPackages();});
-$('pkg-delete-btn').addEventListener('click',async()=>{const id=$('pkg-id').value;if(!confirm('Delete this package?'))return;const{error}=await sb.from('packages').delete().eq('id',id);if(error){toast('Delete failed: '+error.message,'error');return;}toast('Package deleted');closeModal('modal-package');loadPackages();});
+['fname','email','event','package'].forEach(id=>{const el=document.getElementById(id);if(!el)return;const reset=()=>{el.style.borderColor='';};el.addEventListener('input',reset);el.addEventListener('change',reset);});
 
-// CUSTOMERS
-let allCustomers=[];
-async function loadCustomers(){const{data,error}=await sb.from('customers').select('*, bookings(count)').order('created_at',{ascending:false});if(error){toast('Failed to load customers','error');return;}allCustomers=data||[];renderCustomers(allCustomers);}
-function renderCustomers(data){$('customers-count').textContent=`${data.length} customer${data.length!==1?'s':''}`;const tbody=$('customers-tbody');if(!data.length){tbody.innerHTML=`<tr><td colspan="7"><div class="empty"><div class="empty-icon">👤</div><div class="empty-msg">No customers yet</div></div></td></tr>`;return;}tbody.innerHTML=data.map(c=>`<tr><td class="primary">${c.first_name} ${c.last_name||''}</td><td>${c.email}</td><td>${c.phone||'—'}</td><td>${c.instagram_handle?`@${c.instagram_handle}`:'—'}</td><td>${c.bookings?.[0]?.count??0}</td><td class="mono">${fmtDate(c.created_at)}</td><td><button class="btn btn-ghost btn-sm" onclick="openCustomer('${c.id}')">Edit</button></td></tr>`).join('');}
-$('customers-search').addEventListener('input',e=>{const q=e.target.value.toLowerCase();renderCustomers(allCustomers.filter(c=>`${c.first_name} ${c.last_name||''} ${c.email}`.toLowerCase().includes(q)));});
-window.openCustomer=async function(id){const c=allCustomers.find(x=>x.id===id);if(!c)return;$('modal-customer-body').innerHTML=`<input type="hidden" id="cust-id" value="${c.id}"><div class="field-row"><div class="field"><label class="field-label">First name</label><input class="field-input" id="cust-fname" value="${c.first_name}"></div><div class="field"><label class="field-label">Last name</label><input class="field-input" id="cust-lname" value="${c.last_name||''}"></div></div><div class="field-row"><div class="field"><label class="field-label">Email</label><input class="field-input" id="cust-email" value="${c.email}"></div><div class="field"><label class="field-label">Phone</label><input class="field-input" id="cust-phone" value="${c.phone||''}"></div></div><div class="field"><label class="field-label">Instagram handle</label><input class="field-input" id="cust-instagram" value="${c.instagram_handle||''}" placeholder="without @"></div><div class="field"><label class="field-label">Admin notes</label><textarea class="field-textarea" id="cust-notes" placeholder="Internal notes…">${c.notes||''}</textarea></div>`;
-  $('customer-save-btn').onclick=async()=>{const{error}=await sb.from('customers').update({first_name:$('cust-fname').value.trim(),last_name:$('cust-lname').value.trim()||null,email:$('cust-email').value.trim().toLowerCase(),phone:$('cust-phone').value.trim()||null,instagram_handle:$('cust-instagram').value.trim()||null,notes:$('cust-notes').value.trim()||null}).eq('id',id);if(error){toast('Save failed: '+error.message,'error');return;}toast('Customer updated');closeModal('modal-customer');loadCustomers();};
-  openModal('modal-customer');
-};
+const ro=new IntersectionObserver((entries)=>{entries.forEach(entry=>{if(!entry.isIntersecting)return;const siblings=[...(entry.target.parentElement?.querySelectorAll('.reveal')||[])];const idx=siblings.indexOf(entry.target);entry.target.style.transitionDelay=`${idx*90}ms`;entry.target.classList.add('visible');ro.unobserve(entry.target);});},{threshold:0.07,rootMargin:'0px 0px -36px 0px'});
+document.querySelectorAll('.reveal').forEach(el=>ro.observe(el));
 
-// PAYMENTS
-async function loadPayments(){const{data,error}=await sb.from('payments').select('*, bookings(customer_id, customers(first_name, last_name))').order('created_at',{ascending:false});if(error){toast('Failed to load payments','error');return;}const payments=data||[];$('payments-count').textContent=`${payments.length} payment${payments.length!==1?'s':''}`;const tbody=$('payments-tbody');if(!payments.length){tbody.innerHTML=`<tr><td colspan="8"><div class="empty"><div class="empty-icon">💳</div><div class="empty-msg">No payments recorded</div></div></td></tr>`;return;}tbody.innerHTML=payments.map(p=>{const cust=p.bookings?.customers,name=cust?`${cust.first_name} ${cust.last_name||''}`:'—';return`<tr><td class="mono" style="font-size:10px;">${p.booking_id.slice(0,8)}…</td><td>${name}</td><td>${fmt(p.amount_cents)}</td><td>${p.provider}</td><td>${badge(p.payment_status)}</td><td class="mono" style="font-size:10px;">${p.transaction_ref||'—'}</td><td class="mono">${fmtDate(p.created_at)}</td><td><button class="btn btn-ghost btn-sm" onclick="openPayment('${p.id}')">Edit</button></td></tr>`;}).join('');}
-$('new-payment-btn').addEventListener('click',()=>{$('payment-modal-title').textContent='LOG PAYMENT';$('pay-id').value='';$('pay-booking-id').value='';$('pay-amount').value='';$('pay-provider').value='manual';$('pay-status').value='paid';$('pay-ref').value='';$('pay-notes').value='';openModal('modal-payment');});
-window.openPayment=async function(id){const{data,error}=await sb.from('payments').select('*').eq('id',id).single();if(error||!data){toast('Failed to load payment','error');return;}$('payment-modal-title').textContent='EDIT PAYMENT';$('pay-id').value=data.id;$('pay-booking-id').value=data.booking_id;$('pay-amount').value=data.amount_cents;$('pay-provider').value=data.provider;$('pay-status').value=data.payment_status;$('pay-ref').value=data.transaction_ref||'';$('pay-notes').value=data.notes||'';openModal('modal-payment');};
-$('payment-save-btn').addEventListener('click',async()=>{const id=$('pay-id').value;const payload={booking_id:$('pay-booking-id').value.trim(),amount_cents:parseInt($('pay-amount').value),provider:$('pay-provider').value,payment_status:$('pay-status').value,transaction_ref:$('pay-ref').value.trim()||null,notes:$('pay-notes').value.trim()||null,currency:'aud'};if(!payload.booking_id||!payload.amount_cents){toast('Booking ID and amount are required','error');return;}const{error}=id?await sb.from('payments').update(payload).eq('id',id):await sb.from('payments').insert(payload);if(error){toast('Save failed: '+error.message,'error');return;}if(payload.payment_status==='paid'){await sb.from('bookings').update({deposit_status:'paid'}).eq('id',payload.booking_id);}toast(id?'Payment updated':'Payment logged');closeModal('modal-payment');loadPayments();loadBookings();loadDashboard();});
+const navIndicator=document.getElementById('nav-indicator');
+const navLinks=document.querySelectorAll('.nav-center a[data-nav]');
+const navUl=document.getElementById('nav-center');
+const nav=document.querySelector('nav');
+let navLocked=false;
+function moveIndicatorTo(el){if(!el||!navIndicator||!nav)return;const navRect=nav.getBoundingClientRect(),linkRect=el.getBoundingClientRect();navIndicator.style.left=(linkRect.left-navRect.left)+'px';navIndicator.style.width=linkRect.width+'px';navIndicator.classList.add('visible');}
+function returnToActive(){if(navLocked)return;const active=document.querySelector('.nav-center a.active');active?moveIndicatorTo(active):navIndicator.classList.remove('visible');}
+navUl.addEventListener('mousemove',e=>{if(navLocked)return;let closest=null,closestDist=Infinity;navLinks.forEach(a=>{const rect=a.getBoundingClientRect(),cx=rect.left+rect.width/2,dist=Math.abs(e.clientX-cx);if(dist<closestDist){closestDist=dist;closest=a;}});if(closest){navLinks.forEach(a=>{if(a!==closest)a.style.color='';});closest.style.color='var(--text)';moveIndicatorTo(closest);}});
+navUl.addEventListener('mouseleave',()=>{if(navLocked)return;navLinks.forEach(a=>{a.style.color='';});returnToActive();});
+const sections=[{id:'hero',nav:'home'},{id:'portfolio',nav:'portfolio'},{id:'events',nav:'events'},{id:'packages',nav:'packages'},{id:'booking',nav:'booking'}];
+const sectionObserver=new IntersectionObserver((entries)=>{entries.forEach(entry=>{if(!entry.isIntersecting)return;const match=sections.find(s=>s.id===entry.target.id);if(!match)return;navLinks.forEach(a=>a.classList.remove('active'));const active=document.querySelector(`.nav-center a[data-nav="${match.nav}"]`);if(active){active.classList.add('active');moveIndicatorTo(active);}});},{threshold:0.25,rootMargin:'-60px 0px -40% 0px'});
+sections.forEach(s=>{const el=document.getElementById(s.id);if(el)sectionObserver.observe(el);});
+requestAnimationFrame(()=>{requestAnimationFrame(()=>{const homeLink=document.querySelector('.nav-center a[data-nav="home"]');if(homeLink&&!document.querySelector('.nav-center a.active')){homeLink.classList.add('active');moveIndicatorTo(homeLink);}});});
+let resizeTimer;window.addEventListener('resize',()=>{clearTimeout(resizeTimer);resizeTimer=setTimeout(()=>{const active=document.querySelector('.nav-center a.active');if(active)moveIndicatorTo(active);},60);});
 
-// PORTFOLIO
-const STORAGE_BUCKET='Portfolio';
-async function loadPortfolioAdmin(){const{data,error}=await sb.from('portfolio_assets').select('*').order('sort_order',{ascending:true});if(error){toast('Failed to load portfolio','error');return;}const assets=data||[];$('portfolio-count').textContent=`${assets.length} photo${assets.length!==1?'s':''}`;const grid=$('portfolio-grid-admin');if(!assets.length){grid.innerHTML=`<div class="empty" style="grid-column:1/-1"><div class="empty-icon">🖼️</div><div class="empty-msg">No photos yet — upload some above</div></div>`;return;}grid.innerHTML=assets.map(a=>`<div class="portfolio-thumb"><img src="${a.image_url}" alt="${a.alt_text||''}" loading="lazy">${a.featured?'<div class="thumb-badge-featured">Featured</div>':''}<div class="portfolio-thumb-overlay"><div class="portfolio-thumb-title">${a.title||'Untitled'}</div><div class="portfolio-thumb-actions"><button class="thumb-btn" onclick="openPortfolioAsset('${a.id}')">Edit</button><button class="thumb-btn danger" onclick="deletePortfolioAsset('${a.id}')">Delete</button></div></div></div>`).join('');}
-async function handlePortfolioUpload(files){if(!files||!files.length)return;const progress=$('upload-progress'),bar=$('upload-bar');progress.style.display='block';bar.style.width='0%';let done=0;for(const file of files){if(!file.type.startsWith('image/')){toast(`${file.name} is not an image`,'error');done++;continue;}if(file.size>10*1024*1024){toast(`${file.name} exceeds 10MB`,'error');done++;continue;}const ext=file.name.split('.').pop(),path=`public/${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`;const{error:upErr}=await sb.storage.from(STORAGE_BUCKET).upload(path,file,{cacheControl:'3600',upsert:false});if(upErr){toast(`Upload failed: ${upErr.message}`,'error');done++;bar.style.width=`${Math.round((done/files.length)*100)}%`;continue;}const{data:urlData}=sb.storage.from(STORAGE_BUCKET).getPublicUrl(path);const publicUrl=urlData.publicUrl;const{data:existing}=await sb.from('portfolio_assets').select('sort_order').order('sort_order',{ascending:false}).limit(1);const nextSort=(existing?.[0]?.sort_order??-1)+1;const{error:dbErr}=await sb.from('portfolio_assets').insert({image_url:publicUrl,alt_text:file.name.replace(/\.[^.]+$/,''),title:'',featured:false,visible:true,sort_order:nextSort});if(dbErr){toast(`DB insert failed: ${dbErr.message}`,'error');}done++;bar.style.width=`${Math.round((done/files.length)*100)}%`;}setTimeout(()=>{progress.style.display='none';bar.style.width='0%';},800);toast(`${done} photo${done!==1?'s':''} uploaded`);loadPortfolioAdmin();}
-$('portfolio-upload-btn').addEventListener('click',()=>$('portfolio-file-input').click());
-$('portfolio-drop-zone').addEventListener('click',()=>$('portfolio-file-input').click());
-$('portfolio-file-input').addEventListener('change',e=>handlePortfolioUpload(e.target.files));
-const dropZone=$('portfolio-drop-zone');
-dropZone.addEventListener('dragover',e=>{e.preventDefault();dropZone.classList.add('drag-over');});
-dropZone.addEventListener('dragleave',()=>dropZone.classList.remove('drag-over'));
-dropZone.addEventListener('drop',e=>{e.preventDefault();dropZone.classList.remove('drag-over');handlePortfolioUpload(e.dataTransfer.files);});
-window.openPortfolioAsset=async function(id){const{data,error}=await sb.from('portfolio_assets').select('*').eq('id',id).single();if(error||!data){toast('Failed to load asset','error');return;}$('pa-id').value=data.id;$('pa-tags').value=(data.tags||[]).join(', ');$('pa-preview').src=data.image_url;$('pa-title').value=data.title||'';$('pa-alt').value=data.alt_text||'';$('pa-sort').value=data.sort_order??0;$('pa-featured').checked=!!data.featured;$('pa-visible').checked=data.visible!==false;openModal('modal-portfolio-asset');};
-$('pa-save-btn').addEventListener('click',async()=>{const id=$('pa-id').value;const{error}=await sb.from('portfolio_assets').update({title:$('pa-title').value.trim()||null,alt_text:$('pa-alt').value.trim()||null,sort_order:parseInt($('pa-sort').value)||0,tags:$('pa-tags').value.split(',').map(t=>t.trim()).filter(Boolean),featured:$('pa-featured').checked,visible:$('pa-visible').checked}).eq('id',id);if(error){toast('Save failed: '+error.message,'error');return;}toast('Photo updated');closeModal('modal-portfolio-asset');loadPortfolioAdmin();});
-window.deletePortfolioAsset=async function(id){if(!confirm('Delete this photo? This cannot be undone.'))return;const{data}=await sb.from('portfolio_assets').select('image_url').eq('id',id).single();const{error:dbErr}=await sb.from('portfolio_assets').delete().eq('id',id);if(dbErr){toast('Delete failed: '+dbErr.message,'error');return;}if(data?.image_url){const path=data.image_url.split(`/${STORAGE_BUCKET}/`)[1];if(path)await sb.storage.from(STORAGE_BUCKET).remove([path]);}toast('Photo deleted');loadPortfolioAdmin();};
-$('pa-delete-btn').addEventListener('click',async()=>{const id=$('pa-id').value;closeModal('modal-portfolio-asset');await deletePortfolioAsset(id);});
+const hamburger=document.getElementById('nav-hamburger'), drawer=document.getElementById('nav-drawer');
+function openDrawer(){hamburger.classList.add('open');hamburger.setAttribute('aria-expanded','true');drawer.classList.add('open');drawer.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';}
+window.closeDrawer=function(){hamburger.classList.remove('open');hamburger.setAttribute('aria-expanded','false');drawer.classList.remove('open');drawer.setAttribute('aria-hidden','true');document.body.style.overflow='';};
+hamburger.addEventListener('click',()=>{drawer.classList.contains('open')?closeDrawer():openDrawer();});
+drawer.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click',closeDrawer));
+document.addEventListener('click',e=>{if(drawer.classList.contains('open')&&!drawer.contains(e.target)&&!hamburger.contains(e.target))closeDrawer();});
 
-// INIT
-checkSession();
+document.querySelectorAll('a[href]').forEach(a=>{
+  const href=a.getAttribute('href');
+  if(!href||href.startsWith('#')||href.startsWith('http')||href.startsWith('mailto'))return;
+  a.addEventListener('click',e=>{e.preventDefault();navLocked=true;const navLink=a.closest('.nav-center')?a:document.querySelector(`.nav-center a[href="${href}"]`);if(navLink)moveIndicatorTo(navLink);document.body.classList.add('page-exit');setTimeout(()=>{window.location.href=href;},220);});
+});
+
+loadEvents();loadPackages();loadPortfolio();
 </script>
 </body>
 </html>
